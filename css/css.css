@@ -3,7 +3,7 @@ body {
 	font-family:Raleway;
 }
 .main-body {
-	background:#666666;
+	background:#444444;
 }
 .main-titles {
 	font-size:30;
@@ -14,6 +14,8 @@ body {
 	border-radius: 40px 40px 40px 40px;
 }
 .main-introductory-info {
+	background:#666666;
 	font-size:25;
 	color:#efefef;
+		border-radius: 15px 15px 15px 15px;
 }
