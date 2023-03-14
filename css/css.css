@@ -8,6 +8,10 @@ body {
 .main-titles {
 	font-size:30;
 	color:#efefef;
+	background-image:url("../images/headerArchery.png");
+  	background-repeat: no-repeat;
+	background-size:cover;
+	border-radius: 40px 40px 40px 40px;
 }
 .main-introductory-info {
 	font-size:25;
