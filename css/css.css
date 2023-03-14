@@ -2,12 +2,17 @@
 /*
 class = "main-titles"
 */
-
-.main-body {
+body {
 	font-family:Raleway;
-	background:#666666ff;
+}
+.main-body {
+	background:#666666;
 }
 .main-titles {
-	font-size:40;
-	color:#efefefff;
+	font-size:30;
+	color:#efefef;
+}
+.main-introductory-info {
+	font-size:25;
+	color:#f20000;
 }
