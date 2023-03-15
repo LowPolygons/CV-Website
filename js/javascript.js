@@ -42,11 +42,12 @@ function determineTextColour(colourBase){
 }
 
 function shuffleStyle() {
-	//var min = 0;
-	//var max = 15;
-	//var randomImageNum = random(min, max);
-	//var printval = ""
-
+	var min = 0;
+	var max = 12;
+	var randomImageNum = random(min, max);
+	var printval = "url('../images/";
+	let _image = printval.concat(printval, randomImageNum, ".png')");
+	
 	//let hexcode = printval.concat("#",vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)]);
 	const backgroundColourRGB = [random(0,200),random(0,200),random(0,200)];
 	const colourIncrement = 25;
@@ -67,6 +68,6 @@ function shuffleStyle() {
 	document.getElementById("main-right").style.background = hexBoxHighlights;
 	document.getElementById("main-right").style.color = hexTextColour;
 	
-	document.getElementById("main-photo").style.backgroundImage = "url('../images/8.png')";
+	document.getElementById("main-photo").style.backgroundImage = _image;
 }
 //<div class = "testbox" onmouseover="shuffleStyle()"></div>
