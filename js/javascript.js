@@ -5,7 +5,8 @@ function random(min, max) {
 function determineColourIncrement(colour, increment) {
 	let addition = colour+increment;
 	if (addition > 255){
-		addition = colour - increment;
+		increment = increment - (255-colour);
+		addition = colour - increment
 	};
 	return addition;
 }
@@ -35,8 +36,8 @@ function shuffleStyle() {
 	//let hexcode = printval.concat("#",vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)]);
 	const backgroundColourRGB = [random(0,255),random(0,255),random(0,255)];
 	const colourIncrement = 65;
-	const textColour = [ 255-backgroundColourRGB[0],255-backgroundColourRGB[1],255-backgroundColourRGB[2] ];
 	const boxHighlights = [ determineColourIncrement(backgroundColourRGB[0], colourIncrement),determineColourIncrement(backgroundColourRGB[1], colourIncrement),determineColourIncrement(backgroundColourRGB[2], colourIncrement)];
+	const textColour = [ 255-boxHighlights[0],255-boxHighlights[1],255-boxHighlights[2] ];
 	const hexBackgroundColour = RGBtoHex(backgroundColourRGB[0],backgroundColourRGB[1],backgroundColourRGB[2]);
 	const hexTextColour = RGBtoHex(textColour[0], textColour[1], textColour[2]);
 	const hexBoxHighlights = RGBtoHex(boxHighlights[0],boxHighlights[1], boxHighlights[2]);
