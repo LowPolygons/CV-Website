@@ -1,4 +1,5 @@
 function changeColor() {
-  document.getElementById("main-photo").style.backgroundImage = "../images/3.png";
-  document.getElementById("main-left").style.background = "#f20000";
+  let img = document.getElementById("myDiv").style.backgroundImage;
+  document.getElementById("main-photo").style.backgroundImage = img;
+  document.getElementById("main-left").style.background = "#999999";
 }
