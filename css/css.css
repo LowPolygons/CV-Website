@@ -11,7 +11,7 @@ body {
 	background-image:url("../images/headerArchery.png");
   	background-repeat:no-repeat;
 	background-size:cover;
-	border:5px;
+	padding:5px;
 	border-radius: 40px 40px 40px 40px;
 }
 .main-introductory-info {
@@ -19,5 +19,5 @@ body {
 	font-size:25;
 	color:#efefef;
 	border-radius: 15px 15px 15px 15px;
-	border:5px;
+	padding:5px;
 }
