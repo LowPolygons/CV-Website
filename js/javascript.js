@@ -29,7 +29,17 @@ function RGBtoHex(R,G,B) {
 	return output;
 }
 
-
+function determineTextColour(colourBase){
+	// Counting the perceptive luminance - human eye favors green color...      
+    let luminance = (0.299 * colourBase[0] + 0.587 * colourBase[0] + 0.114 * colourBase[0])/255;
+	
+	if (luminance > 0.5){
+		return RGBtoHex(0,0,0);
+	}
+	else {
+		return RGBtoHex(255,255,255);
+	}
+}
 
 function shuffleStyle() {
 	//var min = 0;
@@ -43,7 +53,7 @@ function shuffleStyle() {
 	const boxHighlights = [ determineColourIncrement(backgroundColourRGB[0], colourIncrement),determineColourIncrement(backgroundColourRGB[1], colourIncrement),determineColourIncrement(backgroundColourRGB[2], colourIncrement)];
 	const textColour = [ 255-boxHighlights[0],255-boxHighlights[1],255-boxHighlights[2] ];
 	const hexBackgroundColour = RGBtoHex(backgroundColourRGB[0],backgroundColourRGB[1],backgroundColourRGB[2]);
-	const hexTextColour = RGBtoHex(textColour[0], textColour[1], textColour[2]);
+	const hexTextColour = determineTextColour(boxHighlights);//RGBtoHex(textColour[0], textColour[1], textColour[2]);
 	const hexBoxHighlights = RGBtoHex(boxHighlights[0],boxHighlights[1], boxHighlights[2]);
 		
 	document.getElementById("main-body").style.background = hexBackgroundColour;
