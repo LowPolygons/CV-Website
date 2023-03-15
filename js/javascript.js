@@ -8,6 +8,10 @@ function determineColourIncrement(colour, increment) {
 		increment = increment - (255-colour);
 		addition = colour - increment
 	};
+	if (addition < 0) {
+		increment = Math.abs(addition);
+		addition = colour + addition
+	};
 	return addition;
 }
 
@@ -35,7 +39,7 @@ function shuffleStyle() {
 
 	//let hexcode = printval.concat("#",vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)]);
 	const backgroundColourRGB = [random(0,255),random(0,255),random(0,255)];
-	const colourIncrement = 65;
+	const colourIncrement = 25;
 	const boxHighlights = [ determineColourIncrement(backgroundColourRGB[0], colourIncrement),determineColourIncrement(backgroundColourRGB[1], colourIncrement),determineColourIncrement(backgroundColourRGB[2], colourIncrement)];
 	const textColour = [ 255-boxHighlights[0],255-boxHighlights[1],255-boxHighlights[2] ];
 	const hexBackgroundColour = RGBtoHex(backgroundColourRGB[0],backgroundColourRGB[1],backgroundColourRGB[2]);
@@ -53,4 +57,4 @@ function shuffleStyle() {
 	document.getElementById("main-right").style.background = hexBoxHighlights;
 	document.getElementById("main-right").style.color = hexTextColour;
 }
-//<div class = "testbox" onmouseover="changeImage()"></div>
+//<div class = "testbox" onmouseover="shuffleStyle()"></div>
