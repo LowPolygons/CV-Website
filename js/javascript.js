@@ -46,7 +46,7 @@ function shuffleStyle() {
 	var max = 12;
 	var randomImageNum = random(min, max);
 	var printval = "url('../images/";
-	let _image = printval.concat(printval, randomImageNum, ".png')");
+	let _image = printval.concat(randomImageNum, ".png')");
 	
 	//let hexcode = printval.concat("#",vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)]);
 	const backgroundColourRGB = [random(0,200),random(0,200),random(0,200)];
