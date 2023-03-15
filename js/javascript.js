@@ -48,7 +48,7 @@ function shuffleStyle() {
 	//var printval = ""
 
 	//let hexcode = printval.concat("#",vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)]);
-	const backgroundColourRGB = [random(0,255),random(0,255),random(0,255)];
+	const backgroundColourRGB = [random(0,200),random(0,200),random(0,200)];
 	const colourIncrement = 25;
 	const boxHighlights = [ determineColourIncrement(backgroundColourRGB[0], colourIncrement),determineColourIncrement(backgroundColourRGB[1], colourIncrement),determineColourIncrement(backgroundColourRGB[2], colourIncrement)];
 	const textColour = [ 255-boxHighlights[0],255-boxHighlights[1],255-boxHighlights[2] ];
