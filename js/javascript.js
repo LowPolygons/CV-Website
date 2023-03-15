@@ -23,20 +23,6 @@ function RGBtoHex(R,G,B) {
 	return output;
 }
 
-function shuffleStyle() {
-	var min = 0;
-	var max = 15;
-	var randomImageNum = random(min, max);
-	var printval = ""
-
-	let hexcode = printval.concat("#",vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)]);
-	
-  document.getElementById("main-left").style.background = hexcode;
-  document.getElementById("main-introductory-info").style.background = hexcode;
-  document.getElementById("main-right").style.background = hexcode;
-}
-
-//<div class = "testbox" onmouseover="changeImage()"></div>
 
 const vals = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"];
 const backgroundColourRGB = [random(0,255),random(0,255),random(0,255)];
@@ -47,10 +33,22 @@ const hexBackgroundColour = RGBtoHex(backgroundColourRGB[0],backgroundColourRGB[
 const hexTextColour = RGBtoHex(textColour[0], textColour[1], textColour[2]);
 const hexBoxHighlights = RGBtoHex(boxHighlights[0],boxHighlights[1], boxHighlights[2]);
 
-document.getElementById("main-body").style.background = hexBackgroundColour;
 
-document.getElementById("main-left").style.background = hexBoxHighlights;
-document.getElementById("main-left").style.color = hexTextColour;
+function shuffleStyle() {
+	var min = 0;
+	var max = 15;
+	var randomImageNum = random(min, max);
+	var printval = ""
 
-document.getElementById("main-right").style.background = hexBoxHighlights;
-document.getElementById("main-right").style.color = hexTextColour;
+	let hexcode = printval.concat("#",vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)],vals[random(min,max)]);
+	
+	document.getElementById("main-body").style.background = hexBackgroundColour;
+
+	document.getElementById("main-left").style.background = hexBoxHighlights;
+	document.getElementById("main-left").style.color = hexTextColour;
+
+	document.getElementById("main-right").style.background = hexBoxHighlights;
+	document.getElementById("main-right").style.color = hexTextColour;
+}
+
+//<div class = "testbox" onmouseover="changeImage()"></div>
