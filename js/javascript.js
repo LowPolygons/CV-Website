@@ -42,8 +42,8 @@ function determineTextColour(colourBase){
 }
 
 function shuffleStyle() {
-	var min = 0;
-	var max = 12;
+	var min = 1;
+	var max = 13;
 	var randomImageNum = random(min, max);
 	var printval = "url('../images/";
 	let _image = printval.concat(randomImageNum, ".png')");
