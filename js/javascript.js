@@ -14,4 +14,6 @@ function changeImage() {
   //var img = document.getElementById("main-titles");
   //document.getElementById("main-photo").style.backgroundImage = img.Image;
   document.getElementById("main-left").style.background = hexcode;
+  document.getElementById("main-introductory-info").style.background = hexcode;
+  document.getElementById("main-right").style.background = hexcode;
 }
