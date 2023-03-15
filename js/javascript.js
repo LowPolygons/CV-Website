@@ -67,6 +67,6 @@ function shuffleStyle() {
 	document.getElementById("main-right").style.background = hexBoxHighlights;
 	document.getElementById("main-right").style.color = hexTextColour;
 	
-	document.getElementById("main-photo").style.backgroundImage = "url('../images/8.png');";
+	document.getElementById("main-photo").style.backgroundImage = "url('../images/8.png')";
 }
 //<div class = "testbox" onmouseover="shuffleStyle()"></div>
