@@ -40,19 +40,19 @@ body {
 .main-right { 
 	grid-area: 1 / 4 / 2 / 6; 
 	font-size:22;
-	background-image:url("../images/.png");
+	background:#666666;
 	border-radius: 40px 40px 40px 40px;
 	padding:5px;
 }
 .main-photo { 
 	grid-area: 1 / 3 / 2 / 4; 
 	font-size:22; 
-	background:#666666;
+	background-image:url("../images/2.png");
 	border-radius: 40px 40px 40px 40px;
 	padding:5px;
 }
 
-.textbox {
+.testbox {
   width: 100px;
   height: 100px;
   background-color: orange;
