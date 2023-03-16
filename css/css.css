@@ -3,7 +3,7 @@ body {
 	font-family:Raleway;
 }
 .main-body {
-	background:#444444;
+	background-image: url("../images/mainbackground.png");
 	background-size:cover;
   	background-repeat:no-repeat;
 }
@@ -17,10 +17,10 @@ body {
 	border-radius: 40px 40px 40px 40px;
 }
 .main-introductory-info {
-	background:#666666;
+	background:#282828;
 	font-size:25;
 	color:#efefef;
-	border-radius: 15px 15px 15px 15px;
+	border-radius: 30px 5px 100px 5px;
 	padding:5px;
 }
 
@@ -35,15 +35,15 @@ body {
 .main-left  { 
 	grid-area: 1 / 1 / 2 / 3; 
 	font-size:22;
-	background:#666666;
-	border-radius: 40px 40px 40px 40px;
+	background:#282828;
+	border-radius: 30px 5px 100px 5px;
 	padding:5px;
 }
 .main-right { 
 	grid-area: 1 / 4 / 2 / 6; 
 	font-size:22;
-	background:#666666;
-	border-radius: 40px 40px 40px 40px;
+	background:#282828;
+	border-radius: 30px 5px 100px 5px;
 	padding:5px;
 }
 .main-photo { 
