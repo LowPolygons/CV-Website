@@ -57,7 +57,7 @@ function shuffleStyle() {
 	const hexTextColour = determineTextColour(boxHighlights);//RGBtoHex(textColour[0], textColour[1], textColour[2]);
 	const hexBoxHighlights = RGBtoHex(boxHighlights[0],boxHighlights[1], boxHighlights[2]);
 		
-	document.getElementById("main-body").style.background = hexBackgroundColour;
+	//document.getElementById("main-body").style.background = hexBackgroundColour;
 
 	document.getElementById("main-introductory-info").style.background = hexBoxHighlights;
 	document.getElementById("main-introductory-info").style.color = hexTextColour;
@@ -69,6 +69,7 @@ function shuffleStyle() {
 	document.getElementById("main-right").style.color = hexTextColour;
 	
 	document.getElementById("main-body").style.backgroundImage = _image;
+
 	document.getElementById("main-photo").style.backgroundImage = _image;
 }
 //<div class = "testbox" onmouseover="shuffleStyle()"></div>
