@@ -4,6 +4,8 @@ body {
 }
 .main-body {
 	background:#444444;
+	background-size:cover;
+  	background-repeat:no-repeat;
 }
 .main-titles {
 	font-size:30;
