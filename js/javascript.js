@@ -59,16 +59,16 @@ function shuffleStyle() {
 		
 	//document.getElementById("main-body").style.background = hexBackgroundColour;
 
-	document.getElementById("main-introductory-info").style.background = hexBoxHighlights;
-	document.getElementById("main-introductory-info").style.color = hexTextColour;
+	//document.getElementById("main-introductory-info").style.background = hexBoxHighlights;
+	//document.getElementById("main-introductory-info").style.color = hexTextColour;
 	
-	document.getElementById("main-left").style.background = hexBoxHighlights;
-	document.getElementById("main-left").style.color = hexTextColour;
+	//document.getElementById("main-left").style.background = hexBoxHighlights;
+	//document.getElementById("main-left").style.color = hexTextColour;
 
-	document.getElementById("main-right").style.background = hexBoxHighlights;
-	document.getElementById("main-right").style.color = hexTextColour;
+	//document.getElementById("main-right").style.background = hexBoxHighlights;
+	//document.getElementById("main-right").style.color = hexTextColour;
 	
-	document.getElementById("main-body").style.backgroundImage = _image;
+	//document.getElementById("main-body").style.backgroundImage = _image;
 
 	//document.getElementById("main-photo").style.backgroundImage = _image;
 }
