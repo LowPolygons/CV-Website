@@ -79,10 +79,10 @@ body {
 .main-button2 { 
 	grid-area: 1 / 2 / 2 / 3; 
 	border-radius:45%; 
-	background-image: linear-gradient(#555555ff, #555555ff), url("../images/education.png");
+	background-image: linear-gradient(#0000009b, #00000033), url("../images/education.png");
 	background-size:cover;
   	background-repeat:no-repeat;
-	background-color:#777777FF;	
+	background-color:#0055559b;
 }
 .main-button3 { grid-area: 1 / 3 / 2 / 4; background:#7777779B; border-radius:45%; }
 .main-button4 { grid-area: 1 / 4 / 2 / 5; background:#7777779B; border-radius:45%; }
