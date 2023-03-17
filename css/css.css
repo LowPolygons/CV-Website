@@ -3,14 +3,14 @@ body {
 	font-family:Raleway;
 }
 .main-body {
-	background-image: url("../images/mainbackground.png");
+	background-image: linear-gradient(#00000055, #00555555), url("../images/mainbackground.png");
 	background-size:cover;
   	background-repeat:no-repeat;
 }
 .main-titles {
 	font-size:20;
 	color:#efefef;
-	background-image:url("../images/headerArchery.png");
+	background-image: url("../images/headerArchery.png");
   	background-repeat:no-repeat;
 	background-size:cover;
 	padding:5px;
@@ -35,7 +35,7 @@ body {
 .main-left  { 
 	grid-area: 1 / 1 / 2 / 3; 
 	font-size:22;
-	background:#7777779B;
+	background-image: linear-gradient(#000000ff, #00ffff55);
 	color:#efefef;
 	border-radius: 30px 5px 75px 5px;
 	padding:5px;
@@ -43,7 +43,7 @@ body {
 .main-right { 
 	grid-area: 1 / 4 / 2 / 6; 
 	font-size:22;
-	background:#7777779B;
+	background-image: linear-gradient(#000000ff, #00ffff55);
 	color:#efefef;
 	border-radius: 30px 5px 75px 5px;
 	padding:5px;
@@ -52,7 +52,7 @@ body {
 	grid-area: 1 / 3 / 2 / 4; 
 	font-size:20;
 	color:#efefef;
-	background-image:url("../images/headerArchery.png");
+	background-image:linear-gradient(#0000009b, #00ffff33), url("../images/headerArchery.png");
 	background-size: cover;
 	background-size: no-repeat;
 	border-radius: 40px 40px 40px 40px;
@@ -79,9 +79,13 @@ body {
 .main-button2 { 
 	grid-area: 1 / 2 / 2 / 3; 
 	border-radius:45%; 
-	background-image: linear-gradient(#0000009b, #00000033), url("../images/education.png");
+	background-image: linear-gradient(#000000ff, #00ffff55), url("../images/education.png");
 	background-size:cover;
   	background-repeat:no-repeat;
+	vertical-align: middle;
+	color: #efefef;
+	font-size:20;
+	text-align:center;
 	background-color:#0055559b;
 }
 .main-button3 { grid-area: 1 / 3 / 2 / 4; background:#7777779B; border-radius:45%; }
