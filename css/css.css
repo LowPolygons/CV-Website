@@ -63,23 +63,31 @@ body {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-template-rows: repeat(2, 1fr);
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	grid-column-gap: 40px;
+	grid-row-gap: 40px;
 }
 
 .main-button1 { 
 	grid-area: 1 / 1 / 3 / 2; 
 	background:#777777FF;
-	border-radius: 10px 10px 10px 10px;	
+	border-radius: 80px 5px 80px 5px;	
 	color: #efefef;
-	font-size:12;
-	padding: 5px;
+	font-size:15;
+	text-align:justify;
+	padding: 30px;
 }
-.main-button2 { grid-area: 1 / 2 / 2 / 3; background:#7777779B; border-radius:30px 5px 75px 5px; }
-.main-button3 { grid-area: 1 / 3 / 2 / 4; background:#7777779B; border-radius:30px 5px 75px 5px; }
-.main-button4 { grid-area: 1 / 4 / 2 / 5; background:#7777779B; border-radius:30px 5px 75px 5px; }
-.main-button5 { grid-area: 1 / 5 / 2 / 6; background:#7777779B; border-radius:30px 5px 75px 5px; }
-.main-button6 { grid-area: 2 / 2 / 3 / 3; background:#7777779B; border-radius:30px 5px 75px 5px; }
-.main-button7 { grid-area: 2 / 3 / 3 / 4; background:#7777779B; border-radius:30px 5px 75px 5px; }
-.main-button8 { grid-area: 2 / 4 / 3 / 5; background:#7777779B; border-radius:30px 5px 75px 5px; }
-.main-button9 { grid-area: 2 / 5 / 3 / 6; background:#7777779B; border-radius:30px 5px 75px 5px; }
+.main-button2 { 
+	grid-area: 1 / 2 / 2 / 3; 
+	border-radius:45%; 
+	background-image: url("../images/education.png");
+	background-size:cover;
+  	background-repeat:no-repeat;
+	background-color:#777777FF;	
+}
+.main-button3 { grid-area: 1 / 3 / 2 / 4; background:#7777779B; border-radius:45%; }
+.main-button4 { grid-area: 1 / 4 / 2 / 5; background:#7777779B; border-radius:45%; }
+.main-button5 { grid-area: 1 / 5 / 2 / 6; background:#7777779B; border-radius:45%; }
+.main-button6 { grid-area: 2 / 2 / 3 / 3; background:#7777779B; border-radius:45%; }
+.main-button7 { grid-area: 2 / 3 / 3 / 4; background:#7777779B; border-radius:45%; }
+.main-button8 { grid-area: 2 / 4 / 3 / 5; background:#7777779B; border-radius:45%; }
+.main-button9 { grid-area: 2 / 5 / 3 / 6; background:#7777779B; border-radius:45%; }
