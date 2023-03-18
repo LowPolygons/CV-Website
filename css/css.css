@@ -11,7 +11,7 @@ a {
   color: #efefef; 	
 }
 .main-body {
-	background-image: linear-gradient(#00000055, #00555555), url("../images/mainbackground.png");
+	background-image: linear-gradient(#00000055, #55555555), url("../images/mainbackground.png");
 	background-size:cover;
   	background-repeat:no-repeat;
 }
@@ -43,7 +43,7 @@ a {
 .main-left  { 
 	grid-area: 1 / 1 / 2 / 3; 
 	font-size:22;
-	background-image: linear-gradient(#000000ff, #00ffff55);
+	background-image: linear-gradient(#000000ff, #00000055);
 	color:#efefef;
 	border-radius: 30px 5px 75px 5px;
 	padding:5px;
@@ -51,7 +51,7 @@ a {
 .main-right { 
 	grid-area: 1 / 4 / 2 / 6; 
 	font-size:22;
-	background-image: linear-gradient(#000000ff, #00ffff55);
+	background-image: linear-gradient(#000000ff, #00000055);
 	color:#efefef;
 	border-radius: 30px 5px 75px 5px;
 	padding:5px;
@@ -60,7 +60,7 @@ a {
 	grid-area: 1 / 3 / 2 / 4; 
 	font-size:20;
 	color:#efefef;
-	background-image:linear-gradient(#0000009b, #00ffff33), url("../images/headerArchery.png");
+	background-image:linear-gradient(#0000009b, #00000033), url("../images/headerArchery.png");
 	background-size: cover;
 	background-size: no-repeat;
 	border-radius: 40px 40px 40px 40px;
@@ -71,36 +71,72 @@ a {
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);
 	grid-template-rows: repeat(2, 1fr);
-	grid-column-gap: 40px;
-	grid-row-gap: 40px;
-	text-decoration: none;
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+	height: 70%;
 }
 
 .main-button1 { 
 	grid-area: 1 / 1 / 3 / 2; 
-	background:#777777FF;
-	border-radius: 80px 5px 80px 5px;	
 	color: #efefef;
-	font-size:15;
-	text-align:justify;
-	padding: 30px;
+	border-radius: 50px 2px 50px 2px;	
+	text-align:center;
+	padding:1%;
+	align-items: center;
+	background-image:linear-gradient(#0000009b, #000000aa), url("../images/tristan.png");
+	background-size:cover;
+}
+.all-buttonInfo {
+	width: 97%;
+	height: 97%;
+	display:grid;
+}
+
+.main-buttonInfo {
+	align-items: center;
+	text-align: center;
+	display:grid;
+	color: #efefef;
+	border-radius: 3% 30% 3% 30%; 
 }
 .main-button2 { 
-	grid-area: 1 / 2 / 2 / 3; 
-	border-radius:45%; 
-	background-image: linear-gradient(#000000ff, #00ffff55), url("../images/education.png");
+	background-image: linear-gradient(#000000ff, #00000055), url("../images/generalinfo.png");
 	background-size:cover;
-  	background-repeat:no-repeat;
-	vertical-align: middle;
-	color: #efefef;
-	font-size:20;
-	text-align:center;
-	background-color:#0055559b;
+	background-repeat:none;
 }
-.main-button3 { grid-area: 1 / 3 / 2 / 4; background:#7777779B; border-radius:45%; }
-.main-button4 { grid-area: 1 / 4 / 2 / 5; background:#7777779B; border-radius:45%; }
-.main-button5 { grid-area: 1 / 5 / 2 / 6; background:#7777779B; border-radius:45%; }
-.main-button6 { grid-area: 2 / 2 / 3 / 3; background:#7777779B; border-radius:45%; }
-.main-button7 { grid-area: 2 / 3 / 3 / 4; background:#7777779B; border-radius:45%; }
-.main-button8 { grid-area: 2 / 4 / 3 / 5; background:#7777779B; border-radius:45%; }
-.main-button9 { grid-area: 2 / 5 / 3 / 6; background:#7777779B; border-radius:45%; }
+.main-button3 { 
+	background-image: linear-gradient(#000000ff, #00000055), url("../images/education.png");
+	background-size:cover;
+	background-repeat:none;
+}
+.main-button4 {
+	background-image: linear-gradient(#000000ff, #00000055), url("../images/workplace.png");
+	background-size:cover;
+	background-repeat:none;
+} 
+
+.main-button5 {
+	background-image: linear-gradient(#000000ff, #00000055), url("../images/hobbies.png");
+	background-size:cover;
+	background-repeat:none;
+}
+.main-button6 {
+	background-image: linear-gradient(#000000ff, #00000055), url("../images/computing.png");
+	background-size:cover;
+	background-repeat:none;
+}
+.main-button7 {
+	background-image: linear-gradient(#000000ff, #00000055), url("../images/skills.png");
+	background-size:cover;
+	background-repeat:none;
+}
+.main-button8 {
+	background-image: linear-gradient(#000000ff, #00000055), url("../images/download.png");
+	background-size:cover;
+	background-repeat:none;
+}
+.main-button9 {
+	background-image: linear-gradient(#000000ff, #00000055), url("../images/options.png");
+	background-size:cover;
+	background-repeat:none;
+}
