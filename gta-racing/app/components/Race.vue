@@ -6,8 +6,12 @@ defineProps<{
 </script>
 
 <template>
-    <div>
-        <h1>Race Name: {{ name }}</h1>
+    <div class="bg-gray-800 border-5 border-gray-800">
+        <h2>
+            <ImportantText>
+                {{ name }}
+            </ImportantText>
+        </h2>
         <img :src="imageUrl">
     </div>
 </template>

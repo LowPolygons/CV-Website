@@ -13,18 +13,14 @@ import races from "~/data/races.json"
             class="w-9/10 mx-auto p-1"
             
         >
-            <Race
-                :name="race.name"
-                :image-url="race.imageUrl"
-                @click="navigateTo(`/${index}`)"
-            />
-            <hr v-if="index !== races.length - 1">
+            <NuxtLink :to="`/${index}`">
+                <!-- <a :href="'/${index}'" when not using nuxtlink-->
+                <Race
+                    :name="race.name"
+                    :image-url="race.imageUrl"
+                />
+                <hr v-if="index !== races.length - 1">
+            </NuxtLink>
         </div>
     </div>
 </template>
-
-<style scoped lang="scss">
-.test {
-    @apply text-slate-900 dark:text-slate-200 text-center p-1 text-3xl font-bold bg-gray-400 dark:bg-gray-900;
-}
-</style>
