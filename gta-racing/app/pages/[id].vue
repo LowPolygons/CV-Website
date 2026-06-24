@@ -10,23 +10,20 @@ const route = useRoute()
 const race = computed(() => {
     if (route.params.id === undefined) return undefined
 
-    let index;
-
     try {
-        index = parseInt(route.params.id.toString());  
-        console.log(index)
+        const index = parseInt(route.params.id.toString())
+
+        if (Number.isNaN(index)) return undefined
+
+        return races.at(index)
     } catch (e) { return undefined } 
-
-    if (Number.isNaN(index)) return undefined;
-
-    return races.at(index);
 })
 
 </script>
 
 <template>
     <div>
-        <Race v-if="race !== undefined" v-bind="race" />
+        <Race class="race" v-if="race !== undefined" v-bind="race" />
         <h1 v-else>Race not found</h1>
 
         <a href="/">Back</a>
