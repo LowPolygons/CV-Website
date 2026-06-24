@@ -1,7 +1,7 @@
 body {
-  background-image: url(https://excision.ca/wp-content/uploads/2023/12/Excision_Tour_Dates.jpg);
+  background-image: url(background.bmp);
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   background-color: #000;
   background-size: cover;
   box-sizing: border-box;
