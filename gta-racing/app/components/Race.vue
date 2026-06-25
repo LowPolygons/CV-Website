@@ -6,12 +6,12 @@ defineProps<{
 </script>
 
 <template>
-    <div class="bg-gray-800 border-5 border-gray-800">
+    <div class="bg-neutral-800 border-5 border-neutral-800">
         <h2>
             <ImportantText>
                 {{ name }}
             </ImportantText>
         </h2>
-        <img :src="imageUrl">
+        <img class="mx-auto":src="imageUrl">
     </div>
 </template>
