@@ -24,11 +24,11 @@ async function submit_new_time() {
         </h1>
         <div class="bg-neutral-500 dark:bg-neutral-900 flex">
             <StyledATag
-                class="flex-1 pl-3 pr-3 pt-1 pb-1 m-2"
+                class="flex flex-1 pl-3 pr-3 pt-1 pb-1 m-2"
                 href="/"
             >
-                <ImportantText class="items-center w-full">
-                    <div class="w-full h-full items-center text-center">Home</div>
+                <ImportantText>
+                    Home
                 </ImportantText>
             </StyledATag>
             <StyledATag class="flex-1 pl-3 pr-3 pt-1 pb-1 m-2">
