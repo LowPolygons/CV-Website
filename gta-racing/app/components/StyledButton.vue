@@ -3,7 +3,7 @@
 
 <template>
     <button 
-        class="bg-mist-700 border-2 border-mist-700 border-double rounded-xl hover:bg-mist-500 focus:bg-mist-900"
+        class="bg-teal-400 dark:bg-teal-600 border-2 border-teal-400 dark:border-teal-600 border-double rounded-xl hover:bg-teal-500 focus:bg-teal-900 items-center justify-center"
     >
         <slot />
     </button>

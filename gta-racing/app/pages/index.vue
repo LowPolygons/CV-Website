@@ -7,11 +7,11 @@ import races from "~/data/races.json"
 </script>
 
 <template>
-    <div class="bg-stone-300 dark:bg-stone-700">
-        <h1 class="text-slate-900 dark:text-slate-200 text-center p-1 text-3xl font-bold bg-neutral-400 dark:bg-neutral-700">
+    <div class="bg-slate-400 dark:bg-slate-950">
+        <h1 class="text-slate-900 dark:text-slate-200 text-center p-1 text-3xl font-bold bg-teal-400 dark:bg-teal-600">
             GTA Racing
         </h1>
-        <div class="bg-neutral-500 dark:bg-neutral-900 flex">
+        <div class="bg-slate-500 dark:bg-slate-800 flex">
             <StyledATag
                 class="flex-1 pl-3 pr-3 pt-1 pb-1 m-2"
                 href="/register"

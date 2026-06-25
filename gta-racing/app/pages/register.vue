@@ -18,11 +18,11 @@ async function submit_new_time() {
 </script>
 
 <template>
-    <div class="container mx-auto bg-stone-800 pb-15 h-screen">
-        <h1 class="text-slate-900 dark:text-slate-200 text-center p-1 text-3xl font-bold bg-neutral-400 dark:bg-neutral-700">
+    <div class="container mx-auto bg-slate-400 dark:bg-slate-950 pb-15 h-screen overflow-y-scroll ">
+        <h1 class="text-slate-900 dark:text-slate-200 text-center p-1 text-3xl font-bold bg-teal-400 dark:bg-teal-600">
             Register a Time
         </h1>
-        <div class="bg-neutral-500 dark:bg-neutral-900 flex">
+        <div class="bg-slate-500 dark:bg-slate-800 flex">
             <StyledATag
                 class="flex flex-1 pl-3 pr-3 pt-1 pb-1 m-2"
                 href="/"
@@ -35,7 +35,7 @@ async function submit_new_time() {
                 <ImportantText>View Global Scoreboard</ImportantText>
             </StyledATag>
         </div>
-        <div class="flex bg-stone-700 mx-auto mt-20 p-1 w-[279px]">
+        <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-20 p-1 w-[279px]">
             <ImportantText class="flex-1 mg-auto">
                 Username:
             </ImportantText>
@@ -46,7 +46,7 @@ async function submit_new_time() {
                 placeholder="Enter Username"
             />
         </div>
-        <div class="flex bg-stone-700 mx-auto mt-15 p-1 w-[279px]">
+        <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-15 p-1 w-[279px]">
             <ImportantText class="flex-1 mg-auto">
                 Race Name:
             </ImportantText>
@@ -57,7 +57,7 @@ async function submit_new_time() {
                 placeholder="Enter Race Name"
             />
         </div>
-        <div class="flex bg-stone-700 mx-auto mt-15 p-1 w-[279px]">
+        <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-15 p-1 w-[279px]">
             <ImportantText class="flex-1 mg-auto">
                 Time:
             </ImportantText>
