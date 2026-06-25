@@ -2,8 +2,6 @@
 import StyledATag from "~/components/StyledATag.vue";
 import StyledButton from "~/components/StyledButton.vue";
 import races from "~/data/races.json"
-
-
 </script>
 
 <template>
@@ -26,13 +24,16 @@ import races from "~/data/races.json"
             v-for="(race, index) in races"
             :key="race.name"
             class="w-9/10 mx-auto p-1"
-            
         >
             <NuxtLink :to="`/${index}`">
-                <Race
-                    :name="race.name"
-                    :image-url="race.imageUrl"
-                />
+                <div class="bg-neutral-300 dark:bg-neutral-700 border-5 border-neutral-300 dark:border-neutral-700 rounded-xl">
+                    <h2>
+                        <ImportantText>
+                            {{ race.name }}
+                        </ImportantText>
+                    </h2>
+                    <img class="flex-1 w-[75%] mx-auto rounded-2xl mb-2":src="race.imageUrl">
+                </div>
                 <hr v-if="index !== races.length - 1">
             </NuxtLink>
         </div>
