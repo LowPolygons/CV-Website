@@ -2,6 +2,8 @@
 import races from "~/data/races.json"
 import type { ApiResponse } from "~~/shared/api_response"
 import type { StoredTimeData } from "~~/shared/StoredTimeData"
+import type { RaceType } from "~~/shared/RaceType"
+import { formattedTime } from "~/scripts/formattedTime"
 
 const route = useRoute()
 
@@ -13,11 +15,11 @@ const race = computed(() => {
 
         if (Number.isNaN(index)) return undefined
 
-        return races.at(index)
+        return races.at(index) as RaceType
     } catch (e) { return undefined } 
 })
 
-async function get_times(race_name: string): Promise<[boolean, number]> {
+async function get_times(race_name: string): Promise<[boolean, number, Array<StoredTimeData>?]> {
     if (route.params.id === undefined) return [false, 0]; 
 
     try {
@@ -28,7 +30,7 @@ async function get_times(race_name: string): Promise<[boolean, number]> {
         ) {
             timeData.content.forEach((item) => console.log(item))
 
-            return [true, timeData.content.length]
+            return [true, timeData.content.length, timeData.content]
         } else {
             return [false, 0]
         }
@@ -38,16 +40,62 @@ async function get_times(race_name: string): Promise<[boolean, number]> {
     }
 }
 
-const validAndMaybeNum: [boolean, number] = race.value !== undefined ? await get_times(race.value.name) : [false, 0]
+const validAndMaybeNum: [boolean, number, Array<StoredTimeData>?] = race.value !== undefined ? await get_times(race.value.name) : [false, 0]
 
 </script>
 
 <template>
-    <div>
-        <Race class="race" v-if="race !== undefined" v-bind="race" />
-        <h1 v-else>Race not found</h1>
-
-        <ImportantText v-if="validAndMaybeNum[0]"> Number of times submitted: {{ validAndMaybeNum[1] }}</ImportantText >
-        <a href="/">Back</a>
+    <div class="container mx-auto bg-slate-400 dark:bg-slate-900 pb-15 h-screen overflow-y-scroll ">
+        <h1 
+            class="text-slate-900 dark:text-slate-200 text-center p-1 text-3xl font-bold bg-teal-400 dark:bg-teal-600"
+        >
+            Race Details 
+        </h1>
+        <div class="bg-slate-500 dark:bg-slate-800 flex">
+            <StyledATag
+                class="flex flex-1 pl-3 pr-3 pt-1 pb-1 m-2"
+                href="/"
+            >
+                <ImportantText>
+                    Home
+                </ImportantText>
+            </StyledATag>
+            <StyledATag class="flex-1 pl-3 pr-3 pt-1 pb-1 m-2">
+                <ImportantText>View Global Scoreboard</ImportantText>
+            </StyledATag>
+        </div>
+        <div>
+            <Race class="w-9/10 mx-auto p-5 mt-5" v-if="race !== undefined" v-bind="race" />
+            <h1 v-else>Race not found</h1>
+        </div>            
+        <div class="bg-slate-300 dark:bg-teal-950 w-9/10 mx-auto mt-5 rounded-xl border-3 border-slate-500">
+            <ImportantText 
+                v-if="validAndMaybeNum[0]"
+                class="p-2"
+            > 
+                Number of times submitted: {{ validAndMaybeNum[1] }}
+            </ImportantText >
+            <table 
+                class="w-[90%] mx-auto border-3 border-slate-500 mb-3" 
+                v-if="validAndMaybeNum[2] !== undefined && validAndMaybeNum[1] > 0"
+            >
+                <thead class="w-[90%]">
+                    <tr class="text-xl italic">
+                        <th class="text-slate-900 dark:text-slate-200 border-2 border-slate-500">Username</th>
+                        <th class="text-slate-900 dark:text-slate-200 border-2 border-slate-500">Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr 
+                        v-for="(timeDetails, index) in validAndMaybeNum[2]"
+                        :key="index"
+                        class="text-center text-slate-900 dark:text-slate-200 border-2 border-slate-500"
+                    >
+                        <td>{{ timeDetails.username }}</td>
+                        <td>{{ formattedTime(timeDetails.mins, timeDetails.secs, timeDetails.millis) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>

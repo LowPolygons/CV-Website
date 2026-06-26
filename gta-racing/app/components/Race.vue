@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
     name: string
+    description: string
     imageUrl: string 
 }>()
 </script>
@@ -12,6 +13,9 @@ defineProps<{
                 {{ name }}
             </ImportantText>
         </h2>
-        <img class="flex-1 w-[75%] mx-auto rounded-2xl mb-2":src="imageUrl">
+        <img class="flex-1 w-[100%] mx-auto rounded-2xl mb-2":src="imageUrl">
+        <ImportantText class="text-justify justify-center w-[85%] mx-auto">
+            {{  description }}
+        </ImportantText>
     </div>
 </template>
