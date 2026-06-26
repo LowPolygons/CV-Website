@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import races from "~~/data/races.json"
+import races from "~/data/races.json"
 import type { ApiResponse } from "~~/shared/api_response"
-import type { TimesFormat } from "~~/shared/api_return_type"
+import type { StoredTimeData } from "~~/shared/StoredTimeData"
 
 const route = useRoute()
 
@@ -21,7 +21,7 @@ async function get_times(race_name: string): Promise<[boolean, number]> {
     if (route.params.id === undefined) return [false, 0]; 
 
     try {
-        const timeData: ApiResponse<Array<TimesFormat>> = await $fetch(`/api/${race_name}`)
+        const timeData: ApiResponse<Array<StoredTimeData>> = await $fetch(`/api/${race_name}`)
 
         if (timeData.status == 200 &&
             timeData.content !== undefined

@@ -2,15 +2,16 @@
 import { S } from "vue-router/dist/index-BQLwgiyK.js"
 import StyledButton from "~/components/StyledButton.vue"
 import races from "~/data/races.json"
+import { formattedTime } from "~/scripts/formattedTime"
 import type { ApiResponse } from "~~/shared/api_response"
 import type { TimePacket } from "~~/shared/TimePacket"
 
 const username = ref('')
 const raceName = ref('')
 
-const mins = ref(0)
-const secs = ref(0)
-const millis = ref(0)
+const mins = ref('')
+const secs = ref('')
+const millis = ref('')
 
 const submitted_successfull = ref(false)
 const message = ref('')
@@ -26,17 +27,16 @@ async function submit_new_time() {
     })
 
     if (status.status === 200) {
-        submitted_successfull.value = true
+        submitted_successfull.value = true        
 
-        message.value = "Successfully submitted a " 
-            + mins.value +  ":" + secs.value + "." + millis.value + 
+        message.value = "Successfully submitted a " + formattedTime(Number(mins.value), Number(secs.value), Number(millis.value)) + 
             " time on " + raceName.value + " under the username " + username.value
 
         username.value = ''
         raceName.value = ''
-        mins.value = 0
-        secs.value = 0
-        millis.value = 0
+        mins.value = '0'
+        secs.value = '00'
+        millis.value = '000'
 
     } else {
         submitted_successfull.value = false
@@ -102,9 +102,11 @@ async function submit_new_time() {
             <input
                 class="flex-1 mg-auto w-[50px] text-slate-900 dark:text-slate-200 text-center p-2"
                 v-model="mins"
-                @input="mins= parseInt(mins.toString().slice(0, 2))"
-                type="number"
+                type="string"
                 placeholder="0"
+                maxlength="2"
+                pattern="[0-9]*"
+                inputmode="numeric"
             />
             <ImportantText class="flex-1 mg-auto">
                 :
@@ -112,9 +114,11 @@ async function submit_new_time() {
             <input
                 class="flex-1 mg-auto w-[60px] text-slate-900 dark:text-slate-200 text-center p-2"
                 v-model="secs"
-                @input="secs= parseInt(secs.toString().slice(0, 2))"
-                type="number"
-                placeholder="0"
+                type="string"
+                placeholder="00"
+                maxlength="2"
+                pattern="[0-9]*"
+                inputmode="numeric"
             />
             <ImportantText class="flex-1 mg-auto">
                 .
@@ -122,9 +126,11 @@ async function submit_new_time() {
             <input
                 class="flex-1 mg-auto w-[70px] text-slate-900 dark:text-slate-200 p-2"
                 v-model="millis"
-                type="number"
+                type="string"
                 placeholder="000"
-                @input="millis = parseInt(millis.toString().slice(0, 3))"
+                maxlength="3"
+                pattern="[0-9]*"
+                inputmode="numeric"
             />
         </div>
 

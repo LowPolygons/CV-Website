@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises"
 import { Err, Ok, type ApiResponse } from "~~/shared/api_response"
 import { join } from "node:path"
-import type { TimesFormat } from "~~/shared/api_return_type"
+import type { StoredTimeData } from "~~/shared/StoredTimeData"
 
 export default defineEventHandler(async (event) => {
 
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     const desiredRace = query.race.trim() as string
 
     try {
-        const times: Array<TimesFormat> = await readFile(
+        const times: Array<StoredTimeData> = await readFile(
             join(process.cwd(), "app/data/times.json"), "utf8")
             .then((data: string) => {
                 if (data === "") data = "[]"

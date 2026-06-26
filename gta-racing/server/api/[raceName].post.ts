@@ -2,7 +2,7 @@ import { readFile, writeFile } from "node:fs/promises"
 import { Err, Ok, type ApiResponse } from "~~/shared/api_response"
 import { join } from "node:path"
 import { getRouterParam } from 'h3'
-import type { TimesFormat } from "~~/shared/api_return_type"
+import type { StoredTimeData } from "~~/shared/StoredTimeData"
 import { TimePacket } from "~~/shared/TimePacket"
 import type { RaceType } from "~~/shared/RaceType.ts"
 
@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
         if (existingRaces.find(race => race.name.toLowerCase() === relevantRace.trim().toLowerCase()) === undefined)
             return Err(500, "Provided race is not in dataset")
 
-        const existingTimes: Array<TimesFormat> = await readFile(
+        const existingTimes: Array<StoredTimeData> = await readFile(
             join(process.cwd(), "/server/data/times.json"), "utf8")
             .then((data: string) => {
                 if (data === "") data = "[]"
