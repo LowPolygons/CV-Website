@@ -10,7 +10,9 @@ export default defineEventHandler(async () => {
             join(process.cwd(), "/server/data/races.json"), "utf8")
             .then((data: string) => JSON.parse(data));
         
-        return Ok(races)
+        return Ok(races.filter((race) => {
+            return race.approved
+        }))
     } catch (error) {
         return Err(500, "Failed to load races database")
     }

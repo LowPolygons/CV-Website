@@ -2,50 +2,25 @@
   {
     "name": "Backroads",
     "description": "A difficult race through the Los Santos Vinyard. Best suited to vehicles with high acceleration and high downforce. Be prepared to get some scrapes for an optimal time",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
+    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+    "approved": true
   },
   {
-    "name": "Mountain Mayhem",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
+    "name": "Benchmarker",
+    "description": "A high speed race through the suburbs. Be careful to dodge all of the destructable objects to get an optimal time!",
+    "imageUrl": "/question_mark.png",
+    "approved": true
   },
   {
-    "name": "Desert Dash",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
+    "name": "Benchmarker V2",
+    "description": "A new variation of the benchmarker race, still in the suburbs, exploring new roads. Be weary of depressions on the road, it will damage your time",
+    "imageUrl": "/question_mark.png",
+    "approved": true
   },
   {
-    "name": "Coastal Sprint",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
-  },
-  {
-    "name": "Forest Fury",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
-  },
-  {
-    "name": "Urban Thunder",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
-  },
-  {
-    "name": "Canyon Challenge",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
-  },
-  {
-    "name": "Sunset Circuit",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
-  },
-  {
-    "name": "River Run",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
-  },
-  {
-    "name": "Peak Pursuit",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
-  },
-  {
-    "name": "Thunder Trail",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
-  },
-  {
-    "name": "Valley Velocity",
-    "imageUrl": "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg"
+    "name": "Loop around Yourself",
+    "description": "A challenging race through the wealthier sections of east los santos. You start at the business center and end at the business center. Ensure you have a lot of downforce for the final bend!",
+    "imageUrl": "/question_mark.png",
+    "approved": true
   }
 ]

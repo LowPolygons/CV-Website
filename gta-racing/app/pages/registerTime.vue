@@ -15,7 +15,7 @@ const submitted_successfull = ref(false)
 const message = ref('')
 
 async function submit_new_time() {
-    const status: ApiResponse<TimePacket> = await $fetch(`/api/races/${raceName.value}`, {
+    const status: ApiResponse<TimePacket> = await $fetch(`/api/raceTimes/${raceName.value}`, {
         method: "POST",
         body: {
             username: username.value,
@@ -68,8 +68,10 @@ async function submit_new_time() {
                     Home
                 </ImportantText>
             </StyledATag>
-            <StyledATag class="flex-1 pl-3 pr-3 pt-1 pb-1 m-2">
-                <ImportantText>View Global Scoreboard</ImportantText>
+            <StyledATag class="flex-1 pl-3 pr-3 pt-1 pb-1 m-2"
+                href="/registerRace"
+            >
+                <ImportantText>Register New Race</ImportantText>
             </StyledATag>
         </div>
         <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-20 p-1 w-[300px] rounded-xl">
