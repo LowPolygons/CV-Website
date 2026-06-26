@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import races from "~/data/races.json"
 import type { ApiResponse } from "~~/shared/api_response"
 import type { StoredTimeData } from "~~/shared/StoredTimeData"
 import type { RaceType } from "~~/shared/RaceType"
-import { formattedTime } from "~/scripts/formattedTime"
+import { formattedTime } from "~/util/formattedTime"
+
+const races = await $fetch("/api/races/races", {
+    method: "GET"
+    }).then((data: ApiResponse<Array<RaceType>>) => {
+        if (data.status == 200) {
+            return data.content
+        } else {
+            return undefined
+        }
+    })
 
 const route = useRoute()
 
@@ -15,6 +24,8 @@ const race = computed(() => {
 
         if (Number.isNaN(index)) return undefined
 
+        if (races === undefined) return undefined
+
         return races.at(index) as RaceType
     } catch (e) { return undefined } 
 })
@@ -23,7 +34,7 @@ async function get_times(race_name: string): Promise<[boolean, number, Array<Sto
     if (route.params.id === undefined) return [false, 0]; 
 
     try {
-        const timeData: ApiResponse<Array<StoredTimeData>> = await $fetch(`/api/${race_name}`)
+        const timeData: ApiResponse<Array<StoredTimeData>> = await $fetch(`/api/raceTimes/${race_name}`)
 
         if (timeData.status == 200 &&
             timeData.content !== undefined

@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { S } from "vue-router/dist/index-BQLwgiyK.js"
 import StyledButton from "~/components/StyledButton.vue"
-import races from "~/data/races.json"
-import { formattedTime } from "~/scripts/formattedTime"
+import { formattedTime } from "~/util/formattedTime"
 import type { ApiResponse } from "~~/shared/api_response"
 import type { TimePacket } from "~~/shared/TimePacket"
 
@@ -17,7 +15,7 @@ const submitted_successfull = ref(false)
 const message = ref('')
 
 async function submit_new_time() {
-    const status: ApiResponse<TimePacket> = await $fetch(`/api/${raceName.value}`, {
+    const status: ApiResponse<TimePacket> = await $fetch(`/api/races/${raceName.value}`, {
         method: "POST",
         body: {
             username: username.value,

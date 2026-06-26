@@ -15,8 +15,6 @@ export default defineEventHandler(async (event) => {
             join(process.cwd(), "/server/data/times.json"), "utf8")
             .then((data: string) => JSON.parse(data))
 
-        console.log(times)
-
         const filtered = times.filter((element) => {
             return (element.raceName.toLowerCase() === desiredRace.toLowerCase())
         })

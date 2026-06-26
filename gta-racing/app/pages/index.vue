@@ -1,7 +1,19 @@
 <script setup lang="ts">
 import StyledATag from "~/components/StyledATag.vue";
 import StyledButton from "~/components/StyledButton.vue";
-import races from "~/data/races.json"
+import type { ApiResponse } from "~~/shared/api_response";
+import type { RaceType } from "~~/shared/RaceType";
+
+const races = await $fetch("/api/races/races", {
+    method: "GET"
+    }).then((data: ApiResponse<Array<RaceType>>) => {
+        if (data.status == 200) {
+            return data.content
+        } else {
+            return undefined
+        }
+    })
+
 </script>
 
 <template>
@@ -21,6 +33,7 @@ import races from "~/data/races.json"
             </StyledATag>
         </div>
         <div
+            v-if="races !== undefined"
             v-for="(race, index) in races"
             :key="race.name"
             class="w-9/10 mx-auto p-1"
@@ -36,6 +49,12 @@ import races from "~/data/races.json"
                 </div>
                 <hr v-if="index !== races.length - 1">
             </NuxtLink>
+        </div>
+        <div
+            class="bg-neutral-300 mt-5 w-[90%] mx-auto dark:bg-neutral-700 border-5 border-neutral-300 dark:border-neutral-700 rounded-xl"
+            v-else
+        >
+            <ImportantText>Sorry, there has been a problem connecting to the server</ImportantText>
         </div>
     </div>
 </template>
