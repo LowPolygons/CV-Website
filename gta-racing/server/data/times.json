@@ -54,9 +54,15 @@
     "millis": 0
   },
   {
-    "raceName": "backroads",
-    "mins": 3,
+    "raceName": "Backroads",
+    "mins": 20,
     "secs": 0,
     "millis": 0
+  },
+  {
+    "raceName": "Backroads",
+    "mins": 20,
+    "secs": 15,
+    "millis": 1
   }
 ]

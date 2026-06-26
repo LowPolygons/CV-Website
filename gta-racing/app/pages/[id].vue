@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import races from "~/data/races.json"
-import type { ApiResponse } from "~/shared/api_response"
-import type { TimesFormat } from "~/shared/api_return_type"
+import races from "~~/data/races.json"
+import type { ApiResponse } from "~~/shared/api_response"
+import type { TimesFormat } from "~~/shared/api_return_type"
 
 const route = useRoute()
 

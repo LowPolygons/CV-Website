@@ -2,8 +2,8 @@
 import { S } from "vue-router/dist/index-BQLwgiyK.js"
 import StyledButton from "~/components/StyledButton.vue"
 import races from "~/data/races.json"
-import type { ApiResponse } from "~/shared/api_response"
-import type { TimePacket } from "~/shared/TimePacket"
+import type { ApiResponse } from "~~/shared/api_response"
+import type { TimePacket } from "~~/shared/TimePacket"
 
 const username = ref('')
 const raceName = ref('')
@@ -13,7 +13,7 @@ const secs = ref(0)
 const millis = ref(0)
 
 const submitted_successfull = ref(false)
-const error_message = ref('')
+const message = ref('')
 
 async function submit_new_time() {
     const status: ApiResponse<TimePacket> = await $fetch(`/api/${raceName.value}`, {
@@ -27,18 +27,29 @@ async function submit_new_time() {
 
     if (status.status === 200) {
         submitted_successfull.value = true
+
+        message.value = "Successfully submitted a " 
+            + mins.value +  ":" + secs.value + "." + millis.value + 
+            " time on " + raceName.value + " under the username " + username.value
+
+        username.value = ''
+        raceName.value = ''
+        mins.value = 0
+        secs.value = 0
+        millis.value = 0
+
     } else {
         submitted_successfull.value = false
         if (status.error !== undefined) {
             console.error(status.error)
 
             if (status.status === 500)  {
-                error_message.value = "The race you provided is not in the dataset"
+                message.value = "The race you provided is not in the dataset"
             } else {
-                error_message.value = "Something went wrong internally, please try again later"
+                message.value = "Something went wrong internally, please try again later"
             }
         } else {
-            error_message.value = "Something went wrong internally, please try again later"
+            message.value = "Something went wrong internally, please try again later"
         }
     }
 }
@@ -120,23 +131,18 @@ async function submit_new_time() {
         <div class="flex w-[300px] mx-auto">
             <StyledButton 
                 class="mx-auto mt-15 p-1 flex-1"
-                @click="submit_new_time()"
+                type="button"
+                @click="submit_new_time"
             >
                 <ImportantText>Submit</ImportantText>
             </StyledButton>
         </div>
 
         <div 
-            v-if="submitted_successfull"
             class="flex w-full mt-5"
+            v-if="message !== ''"
         >
-            <ImportantText class="w-full text-center">Time Submitted Succesfully</ImportantText>
-        </div>
-        <div 
-            v-else
-            class="flex w-full mt-5"
-        >
-            <ImportantText class="w-full text-center">{{ error_message }}</ImportantText>
+            <ImportantText class="w-full text-center">{{ message }}</ImportantText>
         </div>
     </div>
 </template>
