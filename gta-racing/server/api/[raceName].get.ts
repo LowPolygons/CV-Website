@@ -1,25 +1,19 @@
 import { readFile } from "node:fs/promises"
 import { Err, Ok, type ApiResponse } from "~/shared/api_response"
 import { join } from "node:path"
+import { getRouterParam } from 'h3'
 import type { TimesFormat } from "~/shared/api_return_type"
 
 export default defineEventHandler(async (event) => {
+    const desiredRace = getRouterParam(event, "raceName")
 
-    const query = getQuery(event)
-
-    if (typeof query.race !== "string") {
-        return Err(400, "Expected a race parameter")
-    }
-
-    const desiredRace = query.race.trim() as string
+    if (desiredRace === undefined)
+        return Err(400, "Improper API request, raceName router param undefined")
 
     try {
         const times: Array<TimesFormat> = await readFile(
             join(process.cwd(), "app/data/times.json"), "utf8")
-            .then((data: string) => {
-                console.log(data)
-                return JSON.parse(data)
-            })                
+            .then((data: string) => JSON.parse(data))
 
         console.log(times)
 

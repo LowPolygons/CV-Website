@@ -21,11 +21,7 @@ async function get_times(race_name: string): Promise<[boolean, number]> {
     if (route.params.id === undefined) return [false, 0]; 
 
     try {
-        const timeData: ApiResponse<Array<TimesFormat>> = await $fetch("/api/times", {
-            query: {
-                race: race_name
-            }
-        })
+        const timeData: ApiResponse<Array<TimesFormat>> = await $fetch(`/api/${race_name}`)
 
         if (timeData.status == 200 &&
             timeData.content !== undefined

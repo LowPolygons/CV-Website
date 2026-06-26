@@ -5,7 +5,7 @@ import races from "~/data/races.json"
 </script>
 
 <template>
-    <div class="bg-slate-400 dark:bg-slate-950">
+    <div class="bg-slate-400 dark:bg-slate-900">
         <h1 class="text-slate-900 dark:text-slate-200 text-center p-1 text-3xl font-bold bg-teal-400 dark:bg-teal-600">
             GTA Racing
         </h1>

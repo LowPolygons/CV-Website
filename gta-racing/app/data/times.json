@@ -1,8 +1,8 @@
 [
-    {
-        "raceName" : "Backroads",
-        "mins" : 10,
-        "secs" : 50,
-        "millis" : 100
-    }
+  {
+    "raceName": "Backroads",
+    "mins": 2,
+    "secs": 30,
+    "millis": 512
+  }
 ]
