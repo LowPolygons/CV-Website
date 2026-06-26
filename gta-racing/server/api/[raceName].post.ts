@@ -31,6 +31,7 @@ export default defineEventHandler(async (event) => {
 
         existingTimes.push({
             raceName: relevantRace,
+            username: timeData.username,
             mins: timeData.mins,
             secs: timeData.secs,
             millis: timeData.millis

@@ -20,6 +20,7 @@ async function submit_new_time() {
     const status: ApiResponse<TimePacket> = await $fetch(`/api/${raceName.value}`, {
         method: "POST",
         body: {
+            username: username.value,
             mins: mins.value,
             secs: secs.value,
             millis: millis.value
@@ -34,9 +35,9 @@ async function submit_new_time() {
 
         username.value = ''
         raceName.value = ''
-        mins.value = '0'
-        secs.value = '00'
-        millis.value = '000'
+        mins.value = ''
+        secs.value = ''
+        millis.value = ''
 
     } else {
         submitted_successfull.value = false
