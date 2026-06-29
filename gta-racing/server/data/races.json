@@ -22,5 +22,11 @@
     "description": "A challenging race through the wealthier sections of east los santos. You start at the business center and end at the business center. Ensure you have a lot of downforce for the final bend!",
     "imageUrl": "/question_mark.png",
     "approved": true
+  },
+  {
+    "name": "Desert J-Bag",
+    "description": "This race is set in the northern portion of Sandy shores. It features plenty of dirt and track, with some dangerous motorway maneuvores. Ensure you have good acceleration control for an optimal time",
+    "imageUrl": "/uploads/Desert J-Bag/UkriInfinite.png",
+    "approved":true 
   }
 ]

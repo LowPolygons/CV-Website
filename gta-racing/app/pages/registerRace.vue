@@ -5,16 +5,47 @@ import type { ApiResponse } from '~~/shared/api_response';
 const raceName = ref('')
 const description = ref('')
 
+const image = ref<File | null>()
+const imageTextPreview = ref("No Image Chosen")
+const imageURL = ref<string | null>()
+
 const message = ref('')
 
+function updateImage(event: Event) {
+    const target = event.target as HTMLInputElement
+
+    
+    if (target.files === null) return undefined
+    if (target.files.length === 0) return undefined
+
+    const uploadedFile = target.files[0]
+
+    if (uploadedFile === undefined) return undefined 
+
+    image.value = uploadedFile 
+    imageTextPreview.value = uploadedFile.name
+    imageURL.value = URL.createObjectURL(uploadedFile)
+}
+
 async function submitRace() {
+    const formData = new FormData()
+
+    formData.append("name", raceName.value)
+    formData.append("description", description.value)
+    if  (image.value === null || image.value === undefined) {
+        formData.append("placeholderImage", 
+            "/question_mark.png"
+        )
+    } else {
+        formData.append("image", 
+            image.value
+        )
+    }
+
+
     const raceStatus: ApiResponse<boolean> = await $fetch("/api/races/races", {
         method: "POST",
-        body: {
-            name: raceName.value,
-            description: description.value,
-            imageUrl: "/question_mark.png"
-        }
+        body: formData 
     })
     
     if (raceStatus.status == 200) {
@@ -60,7 +91,7 @@ async function submitRace() {
                 placeholder="Enter Race Name"
             />
         </div>
-        <div class="flex flex-col bg-neutral-300 dark:bg-neutral-700 mx-auto mt-15 py-1 w-[300px] rounded-xl">
+        <div class="flex flex-col bg-neutral-300 dark:bg-neutral-700 mx-auto mt-10 py-1 w-[300px] rounded-xl">
             <ImportantText>
                 Description
             </ImportantText>
@@ -71,6 +102,34 @@ async function submitRace() {
                 placeholder="Enter Description"
             />
         </div>
+        <div class="flex flex-col bg-neutral-300 dark:bg-neutral-700 mx-auto mt-10 p-1 w-[300px] rounded-xl">
+            <ImportantText class="whitespace-nowrap">
+                Upload Image:
+            </ImportantText>
+            <div class="flex flex-col items-center">
+                <StyledButton 
+                     class="p-1 flex-1 text-slate-900 dark:text-slate-200 text-center p-1 text-lg font-bold" 
+                    type="button"
+                    @click="$refs.fileSelector.click()"
+                >
+                Choose Image
+                </StyledButton>
+                <p class="italic text-slate-900 dark:text-slate-200 text-center p-1 text-lg">
+                    {{ imageTextPreview  }}
+                </p>
+                <input
+                    class="hidden"
+                    ref="fileSelector"
+                    accept="image/*"
+                    @change="updateImage"
+                    type="file"
+                />
+            </div>
+        </div>
+        <img class="rounded-xl w-[75%] mx-auto mt-4"
+            v-if="imageURL !== null"
+            :src="imageURL"
+        />
         <div class="flex w-[300px] mx-auto">
             <StyledButton 
                 class="mt-15 p-1 flex-1"
