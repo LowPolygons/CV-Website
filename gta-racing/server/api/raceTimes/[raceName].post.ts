@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
         const timeData = await readBody(event) as TimePacket
 
         const existingRaces: Array<RaceType> = await readFile(
-            join(process.cwd(), "/app/data/races.json"), "utf8")
+            join(process.cwd(), "/server/data/races.json"), "utf8")
             .then((data: string) => JSON.parse(data))
 
         if (existingRaces.find(race => race.name.toLowerCase() === relevantRace.trim().toLowerCase()) === undefined)

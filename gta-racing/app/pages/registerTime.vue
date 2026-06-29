@@ -4,8 +4,18 @@ import { formattedTime } from "~/util/formattedTime"
 import type { ApiResponse } from "~~/shared/api_response"
 import type { TimePacket } from "~~/shared/TimePacket"
 
+const route = useRoute()
+
+const preLoadedRace = computed(() => { 
+    const raw = route.query.raceName
+
+    if (!raw) return undefined
+
+    return Array.isArray(raw) ? raw[0] : raw 
+})
+
 const username = ref('')
-const raceName = ref('')
+const raceName = (preLoadedRace) ? ref(preLoadedRace.value) : ref('')
 
 const mins = ref('')
 const secs = ref('')
