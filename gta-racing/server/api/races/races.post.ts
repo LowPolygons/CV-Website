@@ -1,8 +1,18 @@
+import { randomInt, randomUUID } from "node:crypto"
 import { mkdir, readFile, writeFile } from "node:fs/promises"
 import { dirname, format, join } from "node:path"
 import { C } from "vue-router/dist/index-BQLwgiyK.js"
 import { Err, Ok } from "~~/shared/api_response"
 import { RaceType } from "~~/shared/RaceType"
+
+function generateMockUUID(): string {
+    const validChars = "1234567890abcdef"
+    let result = ""
+    for (let i = 0; i < 32; i++) {
+        result = result + validChars.at(randomInt(validChars.length - 1))
+    }
+    return result
+}
 
 export default defineEventHandler(async (event) => {
     type ImageOrPlaceholderType = string | {
@@ -41,12 +51,11 @@ export default defineEventHandler(async (event) => {
                 }
         console.log(raceImageData)
 
-
-        const pathIfFileIsntPlaceholder = "/uploads/" + raceName + "/"
+        const pathIfFileIsntPlaceholder = "/uploads/" + generateMockUUID() + "/"
 
         const formattedImageURL = (typeof(raceImageData) === "string") ?
                 raceImageData : pathIfFileIsntPlaceholder + raceImageData.filename
-        const fileSystemImageUrl = join(process.cwd(), "uploads", formattedImageURL)
+        const fileSystemImageUrl = join(process.cwd(), "public", formattedImageURL)
 
         const existingRaces: Array<RaceType> = await readFile(
             join(process.cwd(), "/server/data/races.json"), "utf8")
