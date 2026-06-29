@@ -73,6 +73,7 @@ export default defineEventHandler(async (event) => {
 
         return Ok(true)
     } catch (error) {
+        console.error(error)
         return Err(500, "Failed to load races database")
     }
 })

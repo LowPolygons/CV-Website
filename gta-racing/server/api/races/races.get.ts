@@ -14,6 +14,7 @@ export default defineEventHandler(async () => {
             return race.approved
         }))
     } catch (error) {
+        console.error(error)
         return Err(500, "Failed to load races database")
     }
 })

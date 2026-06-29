@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import { I } from 'vue-router/dist/index-BQLwgiyK.js';
 import type { ApiResponse } from '~~/shared/api_response';
 
 const raceName = ref('')
 const description = ref('')
 
+const fileSelector = ref<HTMLInputElement | null>(null)
 const image = ref<File | null>()
 const imageTextPreview = ref("No Image Chosen")
 const imageURL = ref<string | null>()
 
 const message = ref('')
 
+const emulateFileSelectorPress = () => {
+    fileSelector.value?.click()
+}
+
 function updateImage(event: Event) {
     const target = event.target as HTMLInputElement
-
     
     if (target.files === null) return undefined
     if (target.files.length === 0) return undefined
@@ -110,7 +113,7 @@ async function submitRace() {
                 <StyledButton 
                      class="p-1 flex-1 text-slate-900 dark:text-slate-200 text-center p-1 text-lg font-bold" 
                     type="button"
-                    @click="$refs.fileSelector.click()"
+                    @click="emulateFileSelectorPress"
                 >
                 Choose Image
                 </StyledButton>

@@ -44,6 +44,7 @@ export default defineEventHandler(async (event) => {
 
         return Ok(timeData)
     } catch (error) {
+        console.error(error)
         return Err(600, "Improper API request: " + error)
     }
 })
