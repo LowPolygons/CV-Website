@@ -30,11 +30,32 @@ const race = computed(() => {
     } catch (e) { return undefined } 
 })
 
-async function get_times(race_name: string): Promise<[boolean, number, Array<StoredTimeData>?]> {
+// async function get_times(race_name: string): Promise<[boolean, number, Array<StoredTimeData>?]> {
+//     if (route.params.id === undefined) return [false, 0]; 
+
+//     try {
+//         const timeData: ApiResponse<Array<StoredTimeData>> = await $fetch(`/api/raceTimes/${race_name}`)
+
+//         if (timeData.status == 200 &&
+//             timeData.content !== undefined
+//         ) {
+//             timeData.content.forEach((item) => console.log(item))
+
+//             return [true, timeData.content.length, timeData.content]
+//         } else {
+//             return [false, 0]
+//         }
+//     } catch (error) {
+//         console.error("Captured Error: ", error)
+//         return [false, 0]
+//     }
+// }
+
+async function getTimes(raceId: number): Promise<[boolean, number, Array<StoredTimeData>?]> {
     if (route.params.id === undefined) return [false, 0]; 
 
     try {
-        const timeData: ApiResponse<Array<StoredTimeData>> = await $fetch(`/api/raceTimes/${race_name}`)
+        const timeData: ApiResponse<Array<StoredTimeData>> = await $fetch(`/api/raceTimes/${raceId}`)
 
         if (timeData.status == 200 &&
             timeData.content !== undefined
@@ -51,8 +72,8 @@ async function get_times(race_name: string): Promise<[boolean, number, Array<Sto
     }
 }
 
-const validAndMaybeNum: [boolean, number, Array<StoredTimeData>?] = race.value !== undefined ? await get_times(race.value.name) : [false, 0]
-
+// const validAndMaybeNum: [boolean, number, Array<StoredTimeData>?] = race.value !== undefined ? await get_times(race.value.name) : [false, 0]
+const validAndMaybeNum: [boolean, number, Array<StoredTimeData>?] = (race.value && race.value.id) ? await getTimes(race.value.id) : [false, 0]
 </script>
 
 <template>
@@ -73,7 +94,8 @@ const validAndMaybeNum: [boolean, number, Array<StoredTimeData>?] = race.value !
             </StyledATag>
             <StyledATag
                 class="flex-1 pl-3 pr-3 pt-1 pb-1 m-2"
-                :href="race ? `/registerTime?raceName=${race.name}` : '/registerTime'"
+                v-if="race !== undefined"
+                :href="`/registerTime?raceId=${race.id}`"
             >
                 <ImportantText>Register New Time</ImportantText>
             </StyledATag>

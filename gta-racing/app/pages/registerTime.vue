@@ -2,20 +2,34 @@
 import StyledButton from "~/components/StyledButton.vue"
 import { formattedTime } from "~/util/formattedTime"
 import type { ApiResponse } from "~~/shared/api_response"
+import type { RaceType } from "~~/shared/RaceType"
 import type { TimePacket } from "~~/shared/TimePacket"
 
 const route = useRoute()
 
-const preLoadedRace = computed(() => { 
-    const raw = route.query.raceName
+async function getRaceInfoFromId(): Promise<RaceType | undefined> { 
+    const raw = route.query.raceId
 
     if (!raw) return undefined
 
-    return Array.isArray(raw) ? raw[0] : raw 
-})
+    const id = Array.isArray(raw) ? raw[0] : raw 
+
+    if (!id) return undefined
+
+    const race: ApiResponse<RaceType> = await $fetch(`/api/races/${id}`)
+    
+    if (race.status !== 200) {
+        console.error(race.error)
+        return undefined
+    }
+
+    return race.content
+}
+
+const preLoadedRace = ref(await getRaceInfoFromId())
 
 const username = ref('')
-const raceName = (preLoadedRace) ? ref(preLoadedRace.value) : ref('')
+const raceName = (preLoadedRace && preLoadedRace.value) ? ref(preLoadedRace.value.name) : ref('Race Not Found')
 
 const mins = ref('')
 const secs = ref('')
@@ -24,8 +38,17 @@ const millis = ref('')
 const submitted_successfull = ref(false)
 const message = ref('')
 
-async function submit_new_time() {
-    const status: ApiResponse<TimePacket> = await $fetch(`/api/raceTimes/${raceName.value}`, {
+async function submitNewTime() {
+    if (!preLoadedRace) {
+        message.value = "There is no race pre-loaded for time submission"
+        return undefined
+    }
+    if (!preLoadedRace.value) {
+        message.value = "There is no race pre-loaded for time submission"
+        return undefined
+    }
+
+    const status: ApiResponse<TimePacket> = await $fetch(`/api/raceTimes/${preLoadedRace.value.id}`, {
         method: "POST",
         body: {
             username: username.value,
@@ -84,18 +107,21 @@ async function submit_new_time() {
                 <ImportantText>Register New Race</ImportantText>
             </StyledATag>
         </div>
-        <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-20 p-1 w-[300px] rounded-xl">
-            <ImportantText class="flex-1 mg-auto">
+        <ImportantText class="flex-1 mx-auto mt-10">
+            {{ raceName }}
+        </ImportantText>
+        <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-10 p-1 w-[300px] rounded-xl">
+            <ImportantText class="flex-1 ">
                 Username:
             </ImportantText>
             <input
-                class="flex-1 mg-auto w-[10px] text-slate-900 dark:text-slate-200 text-center p-2"
+                class="flex-1 w-[10px] text-slate-900 dark:text-slate-200 text-center p-2"
                 v-model="username"
                 type="text"
                 placeholder="Enter Username"
             />
         </div>
-        <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-15 p-1 w-[300px] rounded-xl">
+        <!-- <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-15 p-1 w-[300px] rounded-xl">
             <ImportantText class="flex-1 mg-auto">
                 Race Name:
             </ImportantText>
@@ -104,14 +130,14 @@ async function submit_new_time() {
                 v-model="raceName"
                 type="text"
                 placeholder="Enter Race Name"
-            />
-        </div>
+            /> -->
+        <!-- </div> -->
         <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-15 p-1 w-[300px] rounded-xl">
-            <ImportantText class="flex-1 mg-auto">
+            <ImportantText class="flex-1">
                 Time:
             </ImportantText>
             <input
-                class="flex-1 mg-auto w-[50px] text-slate-900 dark:text-slate-200 text-center p-2"
+                class="flex-1 w-[50px] text-slate-900 dark:text-slate-200 text-center p-2"
                 v-model="mins"
                 type="string"
                 placeholder="0"
@@ -119,11 +145,11 @@ async function submit_new_time() {
                 pattern="[0-9]*"
                 inputmode="numeric"
             />
-            <ImportantText class="flex-1 mg-auto">
+            <ImportantText class="flex-1 ">
                 :
             </ImportantText>
             <input
-                class="flex-1 mg-auto w-[60px] text-slate-900 dark:text-slate-200 text-center p-2"
+                class="flex-1 w-[60px] text-slate-900 dark:text-slate-200 text-center p-2"
                 v-model="secs"
                 type="string"
                 placeholder="00"
@@ -131,11 +157,11 @@ async function submit_new_time() {
                 pattern="[0-9]*"
                 inputmode="numeric"
             />
-            <ImportantText class="flex-1 mg-auto">
+            <ImportantText class="flex-1 ">
                 .
             </ImportantText>
             <input
-                class="flex-1 mg-auto w-[70px] text-slate-900 dark:text-slate-200 p-2"
+                class="flex-1 w-[70px] text-slate-900 dark:text-slate-200 p-2"
                 v-model="millis"
                 type="string"
                 placeholder="000"
@@ -149,7 +175,7 @@ async function submit_new_time() {
             <StyledButton 
                 class="mx-auto mt-15 p-1 flex-1"
                 type="button"
-                @click="submit_new_time"
+                @click="submitNewTime"
             >
                 <ImportantText>Submit</ImportantText>
             </StyledButton>

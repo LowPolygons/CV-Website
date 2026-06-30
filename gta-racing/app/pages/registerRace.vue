@@ -78,9 +78,8 @@ async function submitRace() {
             </StyledATag>
             <StyledATag
                 class="flex-1 pl-3 pr-3 pt-1 pb-1 m-2"
-                href="/registerTime"
             >
-                <ImportantText>Register New Time</ImportantText>
+                <ImportantText>View Global Scoreboard</ImportantText>
             </StyledATag>
         </div>
         <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-20 p-1 w-[300px] rounded-xl">

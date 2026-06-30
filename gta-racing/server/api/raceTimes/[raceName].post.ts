@@ -7,19 +7,19 @@ import { TimePacket } from "~~/shared/TimePacket"
 import type { RaceType } from "~~/shared/RaceType.ts"
 
 export default defineEventHandler(async (event) => {
-    const relevantRace = getRouterParam(event, "raceName")
-
-    if (relevantRace === undefined)
-        return Err(400, "Race Router Param undefined")
-
     try {
+        const relevantRace = Number(getRouterParam(event, "raceId"))
+
+        if (relevantRace === undefined)
+            return Err(400, "Race Router Param undefined")
+
         const timeData = await readBody(event) as TimePacket
 
         const existingRaces: Array<RaceType> = await readFile(
             join(process.cwd(), "/server/data/races.json"), "utf8")
             .then((data: string) => JSON.parse(data))
 
-        if (existingRaces.find(race => race.name.toLowerCase() === relevantRace.trim().toLowerCase()) === undefined)
+        if (existingRaces.find(race => race.id === relevantRace) === undefined)
             return Err(500, "Provided race is not in dataset")
 
         const existingTimes: Array<StoredTimeData> = await readFile(
@@ -30,7 +30,7 @@ export default defineEventHandler(async (event) => {
             })                
 
         existingTimes.push({
-            raceName: relevantRace,
+            raceId: relevantRace,
             username: timeData.username,
             mins: timeData.mins,
             secs: timeData.secs,

@@ -1,5 +1,6 @@
 export type StoredTimeData = {
-    raceName: string,
+    raceName?: string,
+    raceId: number,
     username: string,
     mins: number,
     secs: number,

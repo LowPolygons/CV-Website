@@ -3,4 +3,5 @@ export type RaceType = {
     description: string
     approved: boolean
     imageUrl: string
+    id: number
 }
