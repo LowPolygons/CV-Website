@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import StyledATag from "~/components/StyledATag.vue";
-import StyledButton from "~/components/StyledButton.vue";
 import type { ApiResponse } from "~~/shared/api_response";
 import type { RaceType } from "~~/shared/RaceType";
 
@@ -58,4 +57,4 @@ const races = await $fetch("/api/races/races", {
             <ImportantText>Sorry, there has been a problem connecting to the server</ImportantText>
         </div>
     </div>
-</template>
+</template>>

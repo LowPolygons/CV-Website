@@ -30,27 +30,6 @@ const race = computed(() => {
     } catch (e) { return undefined } 
 })
 
-// async function get_times(race_name: string): Promise<[boolean, number, Array<StoredTimeData>?]> {
-//     if (route.params.id === undefined) return [false, 0]; 
-
-//     try {
-//         const timeData: ApiResponse<Array<StoredTimeData>> = await $fetch(`/api/raceTimes/${race_name}`)
-
-//         if (timeData.status == 200 &&
-//             timeData.content !== undefined
-//         ) {
-//             timeData.content.forEach((item) => console.log(item))
-
-//             return [true, timeData.content.length, timeData.content]
-//         } else {
-//             return [false, 0]
-//         }
-//     } catch (error) {
-//         console.error("Captured Error: ", error)
-//         return [false, 0]
-//     }
-// }
-
 async function getTimes(raceId: number): Promise<[boolean, number, Array<StoredTimeData>?]> {
     if (route.params.id === undefined) return [false, 0]; 
 
