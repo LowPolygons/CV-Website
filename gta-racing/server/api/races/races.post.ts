@@ -1,7 +1,6 @@
-import { randomInt, randomUUID } from "node:crypto"
+import { randomInt } from "node:crypto"
 import { mkdir, readFile, writeFile } from "node:fs/promises"
-import { dirname, format, join } from "node:path"
-import { C } from "vue-router/dist/index-BQLwgiyK.js"
+import { dirname, join } from "node:path"
 import { Err, Ok } from "~~/shared/api_response"
 import { RaceType } from "~~/shared/RaceType"
 
@@ -20,11 +19,6 @@ export default defineEventHandler(async (event) => {
             type: string
             data: Buffer
         }
-    type RaceDetailsPreApproved = { 
-        name: string 
-        description: string 
-        imageOrPlaceholder: ImageOrPlaceholderType 
-    }
 
     try {
         const newRaceParts = await readMultipartFormData(event)
@@ -36,11 +30,7 @@ export default defineEventHandler(async (event) => {
         const getValue = (key: string) => newRaceParts.find(part => part.name === key)
 
         const raceName = getValue("name")!.data.toString()
-        console.log(raceName)
-
         const raceDescription = getValue("description")!.data.toString()
-        console.log(raceDescription)
-
         const raceImageData: ImageOrPlaceholderType = 
             (getValue("placeholderImage")) ? 
                 getValue("placeholderImage")!.data.toString() :
@@ -49,7 +39,6 @@ export default defineEventHandler(async (event) => {
                     type: getValue("image")!.type!,
                     data: getValue("image")!.data
                 }
-        console.log(raceImageData)
 
         const pathIfFileIsntPlaceholder = "/uploads/" + generateMockUUID() + "/"
 

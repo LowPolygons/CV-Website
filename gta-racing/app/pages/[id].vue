@@ -60,8 +60,6 @@ async function getTimes(raceId: number): Promise<[boolean, number, Array<StoredT
         if (timeData.status == 200 &&
             timeData.content !== undefined
         ) {
-            timeData.content.forEach((item) => console.log(item))
-
             return [true, timeData.content.length, timeData.content]
         } else {
             return [false, 0]
@@ -124,6 +122,7 @@ const validAndMaybeNum: [boolean, number, Array<StoredTimeData>?] = (race.value 
                     <tr class="text-xl italic">
                         <th class="text-slate-900 dark:text-slate-200 border-2 border-slate-500">Username</th>
                         <th class="text-slate-900 dark:text-slate-200 border-2 border-slate-500">Time</th>
+                        <th class="text-slate-900 dark:text-slate-200 border-2 border-slate-500">Car</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -132,8 +131,9 @@ const validAndMaybeNum: [boolean, number, Array<StoredTimeData>?] = (race.value 
                         :key="index"
                         class="text-center text-slate-900 dark:text-slate-200 border-2 border-slate-500"
                     >
-                        <td>{{ timeDetails.username }}</td>
-                        <td>{{ formattedTime(timeDetails.mins, timeDetails.secs, timeDetails.millis) }}</td>
+                        <td class="p-1">{{ timeDetails.username }}</td>
+                        <td class="p-1">{{ formattedTime(timeDetails.mins, timeDetails.secs, timeDetails.millis) }}</td>
+                        <td class="p-1">{{ timeDetails.car }}</td>
                     </tr>
                 </tbody>
             </table>

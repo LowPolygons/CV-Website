@@ -29,6 +29,7 @@ async function getRaceInfoFromId(): Promise<RaceType | undefined> {
 const preLoadedRace = ref(await getRaceInfoFromId())
 
 const username = ref('')
+const carName = ref('')
 const raceName = (preLoadedRace && preLoadedRace.value) ? ref(preLoadedRace.value.name) : ref('Race Not Found')
 
 const mins = ref('')
@@ -47,6 +48,23 @@ async function submitNewTime() {
         message.value = "There is no race pre-loaded for time submission"
         return undefined
     }
+    
+    if (username.value === '' ||
+        carName.value === '' ||
+        mins.value === '' ||
+        secs.value === '' ||
+        millis.value === ''
+    ) {
+        message.value = "Please ensure you fill all fields"
+        return undefined
+    }
+
+    if (Number.isNaN(Number(mins.value)) || 
+        Number.isNaN(Number(secs.value)) ||
+        Number.isNaN(Number(millis.value)) ) {
+        message.value = "Please ensure your time only contains numbers"
+        return undefined
+    } 
 
     const status: ApiResponse<TimePacket> = await $fetch(`/api/raceTimes/${preLoadedRace.value.id}`, {
         method: "POST",
@@ -54,6 +72,7 @@ async function submitNewTime() {
             username: username.value,
             mins: mins.value,
             secs: secs.value,
+            car: carName.value,
             millis: millis.value
         }
     })
@@ -121,6 +140,18 @@ async function submitNewTime() {
                 placeholder="Enter Username"
             />
         </div>
+
+        <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-10 p-1 w-[300px] rounded-xl">
+            <ImportantText class="text-left pl-5 pr-2">
+                Car Name:
+            </ImportantText>
+            <input
+                class="flex-1 w-[10px] text-slate-900 dark:text-slate-200 text-center p-2"
+                v-model="carName"
+                type="text"
+                placeholder="Enter Car Name"
+            />
+        </div>
         <!-- <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-15 p-1 w-[300px] rounded-xl">
             <ImportantText class="flex-1 mg-auto">
                 Race Name:
@@ -132,7 +163,7 @@ async function submitNewTime() {
                 placeholder="Enter Race Name"
             /> -->
         <!-- </div> -->
-        <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-15 p-1 w-[300px] rounded-xl">
+        <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-10 p-1 w-[300px] rounded-xl">
             <ImportantText class="flex-1">
                 Time:
             </ImportantText>

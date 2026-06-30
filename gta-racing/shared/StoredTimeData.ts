@@ -4,5 +4,6 @@ export type StoredTimeData = {
     username: string,
     mins: number,
     secs: number,
-    millis: number
+    millis: number,
+    car: string,
 }

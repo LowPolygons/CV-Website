@@ -5,22 +5,7 @@
     "mins": "2",
     "secs": "26",
     "millis": "948",
-    "raceId": 1
-  },
-  {
-    "raceName": "backroads",
-    "username": "roskikov",
-    "mins": "2",
-    "secs": "45",
-    "millis": "105",
-    "raceId": 1
-  },
-  {
-    "raceName": "backroads",
-    "username": "roskikov",
-    "mins": "2",
-    "secs": "29",
-    "millis": "500",
+    "car": "FMJ MK V (HSW)",
     "raceId": 1
   },
   {
@@ -28,6 +13,7 @@
     "username": "Low_Polygons",
     "mins": "2",
     "secs": "51",
+    "car": "FMJ MK V (HSW)",
     "millis": "123",
     "raceId": 4
   },
@@ -35,6 +21,7 @@
     "raceId": 6,
     "username": "Low_Polygons",
     "mins": "2",
+    "car": "FMJ MK V (HSW)",
     "secs": "46",
     "millis": "253"
   }

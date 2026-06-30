@@ -34,7 +34,8 @@ export default defineEventHandler(async (event) => {
             username: timeData.username,
             mins: timeData.mins,
             secs: timeData.secs,
-            millis: timeData.millis
+            millis: timeData.millis,
+            car: timeData.car
         })
 
         await writeFile(

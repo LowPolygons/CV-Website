@@ -7,7 +7,6 @@ import type { StoredTimeData } from "~~/shared/StoredTimeData"
 export default defineEventHandler(async (event) => {
     try {
         const desiredRace = Number(getRouterParam(event, "raceId"))
-        console.log(event)
 
         if (desiredRace === undefined)
             return Err(400, "Improper API request, raceId router param undefined")
