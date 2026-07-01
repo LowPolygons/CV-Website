@@ -18,7 +18,7 @@ const races = await $fetch("/api/races/races", {
 <template>
     <div class="bg-slate-400 dark:bg-slate-900">
         <h1 class="text-slate-900 dark:text-slate-200 text-center p-1 text-3xl font-bold bg-teal-400 dark:bg-teal-600">
-            GTA Racing
+            GTA Racing and Time Registration
         </h1>
         <div class="bg-slate-500 dark:bg-slate-800 flex">
             <StyledATag
