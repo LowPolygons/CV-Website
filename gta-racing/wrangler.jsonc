@@ -1,7 +1,9 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
+  "type": "module",
   "name": "gta-racing",
+  "main": ".output/server/index.mjs",
   "compatibility_date": "2025-07-15",
+  "compatibility_flags": ["nodejs_compat"],
 
   "d1_databases": [
     {
