@@ -1,5 +1,4 @@
 {
-  "main": ".output/server/index.mjs",
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "gta-racing",
   "compatibility_date": "2025-07-15",

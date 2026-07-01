@@ -84,7 +84,9 @@ const validAndMaybeNum: [boolean, number, Array<StoredTimeData>?] = (race.value 
         </div>
         <div>
             <Race class="w-9/10 mx-auto p-5 mt-5" v-if="race !== undefined" v-bind="race" />
-            <h1 v-else>Race not found</h1>
+            <ImportantText v-else>
+                Race not found
+            </ImportantText>
         </div>            
         <div class="bg-slate-300 dark:bg-teal-950 w-9/10 mx-auto mt-5 rounded-xl border-3 border-slate-500">
             <ImportantText 
