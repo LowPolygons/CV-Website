@@ -60,7 +60,7 @@ export default defineEventHandler(async (event) => {
         await db.prepare(`INSERT INTO Races
             (name, description, approved, image_url) 
             VALUES (?, ?, ?, ?)`)
-            .bind(raceName, raceDescription, formattedImageURL, 0)
+            .bind(raceName, raceDescription, 0, formattedImageURL)
             .run()
 
         return Ok(true)
