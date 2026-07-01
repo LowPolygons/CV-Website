@@ -1,75 +1,23 @@
-# Nuxt Minimal Starter
+# CV-Website
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Currently serving as a nice location to track custom races and times made in GTA V
 
-## Setup
+## Architecture
 
-Make sure to install dependencies:
+The project utilises Nuxt.js and Tailwind, with a typescript backend
 
-```bash
-# npm
-npm install
+For datastorage, it utilises Cloudflare D1
 
-# pnpm
-pnpm install
+## Development
 
-# yarn
-yarn install
+From a fresh install, execute `./building.sh` and lastly run the dev instruction it provides at the end of the build step
 
-# bun
-bun install
-```
+Do _NOT_ just run `npm run dev` or `npx wrangler dev`
 
-## Development Server
+## Notes
 
-Start the development server on `http://localhost:3000`:
+This is the first full stack web application I have ever made (and realistically the first Website too)
 
-```bash
-# npm
-npm run dev
+There will be things in here that most likely arent necessary or don't conform to industry standards
 
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+For example, I pretty much just wing it with status codes besides 200
