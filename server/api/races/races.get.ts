@@ -7,7 +7,7 @@ import type { DatabaseRaceType } from "~~/shared/DatabaseRaceType"
 export default defineEventHandler(async (event) => {
     try  {
         const db = event.context.cloudflare.env.race_and_times
-        
+       
         const { results } = await db
             .prepare("SELECT * FROM Races")
             .all()
