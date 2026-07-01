@@ -1,0 +1,18 @@
+CREATE TABLE IF NOT EXISTS Races (
+    race_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    approved BOOLEAN NOT NULL DEFAULT FALSE,
+    image_url TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Times (
+    time_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    mins INTEGER NOT NULL,
+    secs INTEGER NOT NULL,
+    millis INTEGER NOT NULL,
+    car TEXT NOT NULL,
+    race_id INTEGER NOT NULL,
+    FOREIGN KEY (race_id) REFERENCES Races(race_id) ON DELETE CASCADE
+);

@@ -46,13 +46,8 @@ export default defineEventHandler(async (event) => {
                 raceImageData : pathIfFileIsntPlaceholder + raceImageData.filename
         const fileSystemImageUrl = join(process.cwd(), "public", formattedImageURL)
 
-        const existingRaces: Array<RaceType> = await readFile(
-            join(process.cwd(), "/server/data/races.json"), "utf8")
-            .then((data: string) => JSON.parse(data));
-
         // Calculate the current highest id
         let highestId = 0;
-        existingRaces.forEach(race => highestId = race.id > highestId ? race.id : highestId)
 
         // Write the new image to the public assets
         if (typeof(raceImageData) !== "string") {
@@ -60,18 +55,13 @@ export default defineEventHandler(async (event) => {
             await writeFile(fileSystemImageUrl, raceImageData.data)
         }
 
-        existingRaces.push({
-            name: raceName,
-            description: raceDescription,
-            imageUrl: formattedImageURL,
-            approved: false,
-            id: highestId + 1
-        })
+        const db = event.context.cloudflare.env.race_and_times
 
-        await writeFile(
-            join(process.cwd(), "/server/data/races.json"), 
-            JSON.stringify(existingRaces, null, 2)
-        )
+        await db.prepare(`INSERT INTO Races
+            (name, description, approved, image_url) 
+            VALUES (?, ?, ?, ?)`)
+            .bind(raceName, raceDescription, formattedImageURL, 0)
+            .run()
 
         return Ok(true)
     } catch (error) {

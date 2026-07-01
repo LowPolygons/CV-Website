@@ -10,4 +10,8 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
+
+  nitro: {
+    preset: "cloudflare_module"
+  }
 })

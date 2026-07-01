@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gta-racing",
+  "compatibility_date": "2025-07-15",
+
+  "d1_databases": [
+    {
+      "binding": "race_and_times",
+      "database_name": "race-and-times",
+      "database_id": "12c8de83-8c89-40a1-9db8-4dff06928371"
+    }
+  ]
+}

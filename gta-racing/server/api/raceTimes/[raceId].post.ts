@@ -5,9 +5,12 @@ import { getRouterParam } from 'h3'
 import type { StoredTimeData } from "~~/shared/StoredTimeData"
 import { TimePacket } from "~~/shared/TimePacket"
 import type { RaceType } from "~~/shared/RaceType.ts"
+import { DatabaseTimeData } from "~~/shared/DatabaseTimeData"
 
 export default defineEventHandler(async (event) => {
     try {
+        const db = event.context.cloudflare.env.race_and_times
+
         const relevantRace = Number(getRouterParam(event, "raceId"))
 
         if (relevantRace === undefined)
@@ -15,33 +18,26 @@ export default defineEventHandler(async (event) => {
 
         const timeData = await readBody(event) as TimePacket
 
-        const existingRaces: Array<RaceType> = await readFile(
-            join(process.cwd(), "/server/data/races.json"), "utf8")
-            .then((data: string) => JSON.parse(data))
+        const { results } = await db
+            .prepare("SELECT * FROM Races WHERE race_id = ?")
+            .bind(relevantRace)
+            .all()
 
-        if (existingRaces.find(race => race.id === relevantRace) === undefined)
+        if ((results as DatabaseTimeData[]).find((race) => race.race_id === relevantRace) === undefined)
             return Err(500, "Provided race is not in dataset")
 
-        const existingTimes: Array<StoredTimeData> = await readFile(
-            join(process.cwd(), "/server/data/times.json"), "utf8")
-            .then((data: string) => {
-                if (data === "") data = "[]"
-                return JSON.parse(data)
-            })                
-
-        existingTimes.push({
-            raceId: relevantRace,
-            username: timeData.username,
-            mins: timeData.mins,
-            secs: timeData.secs,
-            millis: timeData.millis,
-            car: timeData.car
-        })
-
-        await writeFile(
-            join(process.cwd(), "/server/data/times.json"), 
-            JSON.stringify(existingTimes, null, 2)
-        )
+        await db.prepare(`INSERT INTO Times 
+            (username, mins, secs, millis, car, race_id) 
+            VALUES (?, ?, ?, ?, ?, ?)`)
+            .bind(
+                timeData.username, 
+                timeData.mins, 
+                timeData.secs, 
+                timeData.millis, 
+                timeData.car, 
+                relevantRace
+            )
+            .run()
 
         return Ok(timeData)
     } catch (error) {
