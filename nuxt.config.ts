@@ -14,5 +14,11 @@ export default defineNuxtConfig({
 
   nitro: {
     preset: "cloudflare"
+  },
+
+  runtimeConfig: {
+    public: {
+      imageBaseUrl: "https://www.images.tristanrimmer.com"
+    }
   }
 })

@@ -4,6 +4,8 @@ import type { StoredTimeData } from "~~/shared/StoredTimeData"
 import type { RaceType } from "~~/shared/RaceType"
 import { formattedTime } from "~/util/formattedTime"
 
+const config = useRuntimeConfig()
+
 const races = await $fetch("/api/races/races", {
     method: "GET"
     }).then((data: ApiResponse<Array<RaceType>>) => {
@@ -26,7 +28,11 @@ const race = computed(() => {
 
         if (races === undefined) return undefined
 
-        return races.at(index) as RaceType
+        let race = races.at(index) as RaceType
+
+        race.imageUrl = (race.imageUrl.includes('uploads')) ? `${config.public.imageBaseUrl}/${race.imageUrl}` : `${race.imageUrl}`
+
+        return race
     } catch (e) { return undefined } 
 })
 

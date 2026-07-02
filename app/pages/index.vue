@@ -13,6 +13,8 @@ const races = await $fetch("/api/races/races", {
         }
     })
 
+const config = useRuntimeConfig()
+
 </script>
 
 <template>
@@ -45,7 +47,7 @@ const races = await $fetch("/api/races/races", {
                             {{ race.name }}
                         </ImportantText>
                     </h2>
-                    <img class="flex-1 w-[75%] mx-auto rounded-2xl mb-2":src="race.imageUrl">
+                    <img class="flex-1 w-[75%] mx-auto rounded-2xl mb-2":src="(race.imageUrl.includes('uploads')) ? `${config.public.imageBaseUrl}/${race.imageUrl}` : `${race.imageUrl}`">
                 </div>
                 <hr v-if="index !== races.length - 1">
             </NuxtLink>

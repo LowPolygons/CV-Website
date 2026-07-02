@@ -23,8 +23,6 @@ export default defineEventHandler(async (event) => {
     try {
         const newRaceParts = await readMultipartFormData(event)
 
-        console.log(newRaceParts)
-
         if (!newRaceParts) return Err(401, "Unable to read multipart form data")
 
         const getValue = (key: string) => newRaceParts.find(part => part.name === key)
@@ -40,19 +38,29 @@ export default defineEventHandler(async (event) => {
                     data: getValue("image")!.data
                 }
 
-        const pathIfFileIsntPlaceholder = "/uploads/" + generateMockUUID() + "/"
+        const pathIfFileIsntPlaceholder = "uploads/" + generateMockUUID() + "/"
 
         const formattedImageURL = (typeof(raceImageData) === "string") ?
                 raceImageData : pathIfFileIsntPlaceholder + raceImageData.filename
-        const fileSystemImageUrl = join(process.cwd(), "public", formattedImageURL)
 
         // Calculate the current highest id
         let highestId = 0;
 
         // Write the new image to the public assets
         if (typeof(raceImageData) !== "string") {
-            await mkdir(dirname(fileSystemImageUrl), { recursive: true })
-            await writeFile(fileSystemImageUrl, raceImageData.data)
+            await event.context.cloudflare.env.IMAGES.put(
+                formattedImageURL,
+                raceImageData.data,
+                {
+                    httpMetadata: {
+                        contentType: raceImageData.type
+                    }
+                }
+            )
+            const maybe_success = await event.context.cloudflare.env.IMAGES.get(formattedImageURL)
+
+            if (maybe_success === null)
+                return Err(505, "Could not upload provided image to server")
         }
 
         const db = event.context.cloudflare.env.race_and_times

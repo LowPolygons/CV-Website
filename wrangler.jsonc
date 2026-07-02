@@ -4,6 +4,13 @@
   "compatibility_date": "2025-07-15",
   "compatibility_flags": ["nodejs_compat"],
 
+  "r2_buckets": [
+    {
+      "binding": "IMAGES",
+      "bucket_name": "race-images",
+      "remote": true
+    }
+  ],
   "d1_databases": [
     {
       "binding": "race_and_times",
