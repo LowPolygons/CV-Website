@@ -1,10 +1,6 @@
-import { readFile, writeFile } from "node:fs/promises"
 import { Err, Ok, type ApiResponse } from "~~/shared/api_response"
-import { join } from "node:path"
 import { getRouterParam } from 'h3'
-import type { StoredTimeData } from "~~/shared/StoredTimeData"
 import { TimePacket } from "~~/shared/TimePacket"
-import type { RaceType } from "~~/shared/RaceType.ts"
 import { DatabaseTimeData } from "~~/shared/DatabaseTimeData"
 
 export default defineEventHandler(async (event) => {

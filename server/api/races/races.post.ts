@@ -1,8 +1,5 @@
 import { randomInt } from "node:crypto"
-import { mkdir, readFile, writeFile } from "node:fs/promises"
-import { dirname, join } from "node:path"
 import { Err, Ok } from "~~/shared/api_response"
-import { RaceType } from "~~/shared/RaceType"
 
 function generateMockUUID(): string {
     const validChars = "1234567890abcdef"
