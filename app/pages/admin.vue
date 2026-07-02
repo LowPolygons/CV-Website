@@ -7,10 +7,11 @@ const username = ref('')
 const password = ref('')
 const logged_in = ref(false)
 
-const allRaces = ref<Array<DatabaseRaceType> | null>(null)
-const allTimes = ref<Array<DatabaseTimeData> | null>(null)
+const allRaces = ref<Array<DatabaseRaceType> | null>()
+const allTimes = ref<Array<DatabaseTimeData> | null>()
 
 const approvedRace = ref<number | null>(null)
+const targettedRace = ref<number | null>(null)
 
 const showingRacesNotTimes = ref(true)
 const config = useRuntimeConfig()
@@ -53,7 +54,7 @@ async function logInAttempt() {
 
 async function tryApproveRace() {
     if (approvedRace.value === null) return undefined
-    if (allRaces.value === null) return undefined
+    if (allRaces.value === null || allRaces.value === undefined) return undefined
     
     const targetRace = allRaces.value.find((race) => race.race_id === approvedRace.value) 
 
@@ -68,6 +69,27 @@ async function tryApproveRace() {
 
     if (status.status === 200) {
         message.value = "Succesfully update Race approval status"
+    } else {
+        message.value = "Failed to update race status: " + status.error
+    }
+}
+
+async function tryDeleteRace() {
+    if (targettedRace.value === null) return undefined
+    if (allRaces.value === null || allRaces.value === undefined) return undefined
+    
+    const targetRace = allRaces.value.find((race) => race.race_id === targettedRace.value) 
+
+    if (targetRace === undefined) return undefined
+
+    const status: ApiResponse<boolean> = await $fetch("/api/admin/deleteRace", { 
+        method: "POST",
+        body: {
+            raceId: targettedRace.value
+        }})
+
+    if (status.status === 200) {
+        message.value = "Succesfully deleted RACE status"
     } else {
         message.value = "Failed to update race status: " + status.error
     }
@@ -120,6 +142,9 @@ async function tryApproveRace() {
                 <StyledButton class="mx-auto" @click="showingRacesNotTimes = false">
                     <ImportantText>Times</ImportantText> 
                 </StyledButton>
+                <StyledButton class="mx-auto" @click="logInAttempt">
+                    <ImportantText>Refresh Page</ImportantText> 
+                </StyledButton>
             </div>
             <div
                 v-if="!showingRacesNotTimes && allTimes !== null"
@@ -158,15 +183,26 @@ async function tryApproveRace() {
             <div
                 v-if="showingRacesNotTimes && allRaces !== null"
             >
-                <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-10 py-1 w-[300px] rounded-xl">
+                <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-10 py-1 w-[300px] rounded-xl my-10">
                     <input
-                        class="text-slate-900 dark:text-slate-200 p-2 overflow-x-scroll flex-1 min-w-0"
+                        class="text-slate-900 dark:text-slate-200 flex-1 text-center"
                         v-model="approvedRace"
                         type="number"
-                        placeholder="Enter Race ID To Approve"
+                        placeholder="Enter Race ID"
                     />
-                    <StyledButton @click="tryApproveRace">
+                    <StyledButton class="flex-1 mx-2" @click="tryApproveRace">
                         Submit Race Approval
+                    </StyledButton>
+                </div>
+                <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-10 py-1 w-[300px] rounded-xl my-10">
+                    <input
+                        class="text-slate-900 dark:text-slate-200 flex-1 text-center"
+                        v-model="targettedRace"
+                        type="number"
+                        placeholder="Enter Race ID"
+                    />
+                    <StyledButton class="flex-1 mx-2" @click="tryDeleteRace">
+                        Submit Race To Delete 
                     </StyledButton>
                 </div>
                 <table 
