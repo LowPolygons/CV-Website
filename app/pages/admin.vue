@@ -5,13 +5,18 @@ import type { DatabaseTimeData } from '~~/shared/DatabaseTimeData'
 
 const username = ref('')
 const password = ref('')
-const logged_in = ref(false)
 
+// const logged_in = ref(true)
+// const allRaces = ref<Array<DatabaseRaceType> | null>([])
+// const allTimes = ref<Array<DatabaseTimeData> | null>([])
+
+const logged_in = ref(false)
 const allRaces = ref<Array<DatabaseRaceType> | null>()
 const allTimes = ref<Array<DatabaseTimeData> | null>()
 
 const approvedRace = ref<number | null>(null)
 const targettedRace = ref<number | null>(null)
+const targettedTime = ref<number | null>(null)
 
 const showingRacesNotTimes = ref(true)
 const config = useRuntimeConfig()
@@ -89,9 +94,39 @@ async function tryDeleteRace() {
         }})
 
     if (status.status === 200) {
-        message.value = "Succesfully deleted RACE status"
+        message.value = "Succesfully deleted RACE "
     } else {
-        message.value = "Failed to update race status: " + status.error
+        message.value = "Failed to delete race: " + status.error
+    }
+}
+
+async function tryDeleteTime() {
+    if (targettedTime.value === null) {
+        message.value = "targetted time was null" 
+        return undefined
+    }
+    if (allTimes.value === null || allTimes.value === undefined) {
+        message.value = "allTimes was null or undefined" 
+        return undefined
+    }
+    
+    const targetTime = allTimes.value.find((race) => race.race_id === targettedTime.value) 
+
+    if (targetTime === undefined) {
+        message.value = "Target Time wasn't found in allTimes" 
+        return undefined
+    }
+
+    const status: ApiResponse<boolean> = await $fetch("/api/admin/deleteTime", { 
+        method: "POST",
+        body: {
+            timeId: targettedTime.value
+        }})
+
+    if (status.status === 200) {
+        message.value = "Succesfully deleted time"
+    } else {
+        message.value = "Failed to delete time : " + status.error
     }
 }
 </script>
@@ -149,6 +184,17 @@ async function tryDeleteRace() {
             <div
                 v-if="!showingRacesNotTimes && allTimes !== null"
             >
+                <div class="flex bg-neutral-300 dark:bg-neutral-700 mx-auto mt-10 py-1 w-[300px] rounded-xl my-10">
+                    <input
+                        class="text-slate-900 dark:text-slate-200 flex-1 text-center"
+                        v-model="targettedTime"
+                        type="number"
+                        placeholder="Enter Time ID"
+                    />
+                    <StyledButton class="flex-1 mx-2" @click="tryDeleteTime">
+                        Submit Time To Delete 
+                    </StyledButton>
+                </div>
                 <table 
                     class="w-[90%] mx-auto border-3 border-slate-500 mb-3" 
                 >
