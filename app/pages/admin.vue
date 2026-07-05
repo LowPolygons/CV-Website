@@ -110,7 +110,7 @@ async function tryDeleteTime() {
         return undefined
     }
     
-    const targetTime = allTimes.value.find((race) => race.race_id === targettedTime.value) 
+    const targetTime = allTimes.value.find((time) => time.time_id === targettedTime.value) 
 
     if (targetTime === undefined) {
         message.value = "Target Time wasn't found in allTimes" 
