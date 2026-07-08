@@ -13,7 +13,13 @@ const race = computed(() => {
 
         return undefined
     }
-    return raceData.value ?? undefined
+    if (!raceData.value) return undefined
+
+    raceData.value.imageUrl = (raceData.value.imageUrl.includes('uploads')) 
+            ? `${config.public.imageBaseUrl}/${raceData.value.imageUrl}` 
+            : `${raceData.value.imageUrl}`
+
+    return raceData.value
 })
 
 async function getTimes(raceId: number): Promise<[boolean, number, Array<StoredTimeData>?]> {
