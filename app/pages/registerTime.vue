@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import StyledButton from "~/components/StyledButton.vue"
 import { formattedTime } from "~/util/formattedTime"
-import type { ApiResponse } from "~~/shared/api_response"
 import type { RaceType } from "~~/shared/RaceType"
 import type { TimePacket } from "~~/shared/TimePacket"
+import { FetchError } from 'ofetch'
 
 const route = useRoute()
 
@@ -16,14 +16,14 @@ async function getRaceInfoFromId(): Promise<RaceType | undefined> {
 
     if (!id) return undefined
 
-    const race: ApiResponse<RaceType> = await $fetch(`/api/races/${id}`)
-    
-    if (race.status !== 200) {
-        console.error(race.error)
+    const { data, error } = await useFetch(`/api/races/${id}`)
+
+    if (error.value !== undefined) {
+        console.error(error)
         return undefined
     }
 
-    return race.content
+    return data.value ?? undefined
 }
 
 const preLoadedRace = ref(await getRaceInfoFromId())
@@ -66,18 +66,18 @@ async function submitNewTime() {
         return undefined
     } 
 
-    const status: ApiResponse<TimePacket> = await $fetch(`/api/raceTimes/${preLoadedRace.value.id}`, {
-        method: "POST",
-        body: {
-            username: username.value,
-            mins: mins.value,
-            secs: secs.value,
-            car: carName.value,
-            millis: millis.value
-        }
-    })
+    try {
+        const _ = await $fetch<TimePacket>(`/api/raceTimes/${preLoadedRace.value.id}`, {
+            method: "POST",
+            body: {
+                username: username.value,
+                mins: mins.value,
+                secs: secs.value,
+                car: carName.value,
+                millis: millis.value
+            }
+        })
 
-    if (status.status === 200) {
         submitted_successfull.value = true        
 
         message.value = "Successfully submitted a " + formattedTime(Number(mins.value), Number(secs.value), Number(millis.value)) + 
@@ -88,13 +88,12 @@ async function submitNewTime() {
         mins.value = ''
         secs.value = ''
         millis.value = ''
-
-    } else {
+    } catch (error) {
         submitted_successfull.value = false
-        if (status.error !== undefined) {
-            console.error(status.error)
+        console.error(error)
 
-            if (status.status === 500)  {
+        if (error instanceof FetchError) {
+            if (error.statusCode === 500)  {;
                 message.value = "The race you provided is not in the dataset"
             } else {
                 message.value = "Something went wrong internally, please try again later"

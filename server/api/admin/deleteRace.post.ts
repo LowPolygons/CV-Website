@@ -1,9 +1,11 @@
-import { Err, Ok } from "~~/shared/api_response"
 import { validateSessionAsAdmin } from "./validateSession"
 
 export default defineEventHandler(async (event) => {
     if (!validateSessionAsAdmin(event))
-        return Err(400, "Admin Only API call")
+        return createError({
+            status: 400, 
+            message: "Admin Only API call"
+        })
 
     type FormatOfTargetRace  = {
         raceId: number
@@ -18,8 +20,11 @@ export default defineEventHandler(async (event) => {
             .bind(body.raceId)
             .run()
 
-        return Ok(body)
+        return body
     } catch (error) {
-        return Err(500, "Failed to authenticate a deletion") 
+        return createError({
+            status: 500, 
+            message: "Failed to authenticate race deletion"
+        }) 
     }
 })

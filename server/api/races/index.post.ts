@@ -1,5 +1,4 @@
 import { randomInt } from "node:crypto"
-import { Err, Ok } from "~~/shared/api_response"
 
 function generateMockUUID(): string {
     const validChars = "1234567890abcdef"
@@ -20,7 +19,10 @@ export default defineEventHandler(async (event) => {
     try {
         const newRaceParts = await readMultipartFormData(event)
 
-        if (!newRaceParts) return Err(401, "Unable to read multipart form data")
+        if (!newRaceParts) return createError({
+            status: 401, 
+            message: "Unable to read multipart form data"
+        })
 
         const getValue = (key: string) => newRaceParts.find(part => part.name === key)
 
@@ -40,9 +42,6 @@ export default defineEventHandler(async (event) => {
         const formattedImageURL = (typeof(raceImageData) === "string") ?
                 raceImageData : pathIfFileIsntPlaceholder + raceImageData.filename
 
-        // Calculate the current highest id
-        let highestId = 0;
-
         // Write the new image to the public assets
         if (typeof(raceImageData) !== "string") {
             await event.context.cloudflare.env.IMAGES.put(
@@ -57,7 +56,10 @@ export default defineEventHandler(async (event) => {
             const maybe_success = await event.context.cloudflare.env.IMAGES.get(formattedImageURL)
 
             if (maybe_success === null)
-                return Err(505, "Could not upload provided image to server")
+                return createError({
+                    status: 505, 
+                    message: "Could not upload provided image to server"
+                })
         }
 
         const db = event.context.cloudflare.env.race_and_times
@@ -68,9 +70,12 @@ export default defineEventHandler(async (event) => {
             .bind(raceName, raceDescription, 0, formattedImageURL)
             .run()
 
-        return Ok(true)
+        return true
     } catch (error) {
         console.error(error)
-        return Err(500, "Failed to load races database")
+        return createError({
+            status: 500, 
+            message: "Failed to load races database"
+        })
     }
 })

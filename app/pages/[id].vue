@@ -1,62 +1,38 @@
 <script setup lang="ts">
-import type { ApiResponse } from "~~/shared/api_response"
 import type { StoredTimeData } from "~~/shared/StoredTimeData"
-import type { RaceType } from "~~/shared/RaceType"
 import { formattedTime } from "~/util/formattedTime"
 
 const config = useRuntimeConfig()
 
-const races = await $fetch("/api/races/races", {
-    method: "GET"
-    }).then((data: ApiResponse<Array<RaceType>>) => {
-        if (data.status == 200) {
-            return data.content
-        } else {
-            return undefined
-        }
-    })
-
 const route = useRoute()
 
+const { data: raceData, error } = await useFetch(`/api/races/${route.params.id}`)
 const race = computed(() => {
-    if (route.params.id === undefined) return undefined
+    if (error.value) {
+        console.error(error.value.message)
 
-    try {
-        const index = parseInt(route.params.id.toString())
-
-        if (Number.isNaN(index)) return undefined
-
-        if (races === undefined) return undefined
-
-        let race = races.at(index) as RaceType
-
-        race.imageUrl = (race.imageUrl.includes('uploads')) ? `${config.public.imageBaseUrl}/${race.imageUrl}` : `${race.imageUrl}`
-
-        return race
-    } catch (e) { return undefined } 
+        return undefined
+    }
+    return raceData.value ?? undefined
 })
 
 async function getTimes(raceId: number): Promise<[boolean, number, Array<StoredTimeData>?]> {
     if (route.params.id === undefined) return [false, 0]; 
 
-    try {
-        const timeData: ApiResponse<Array<StoredTimeData>> = await $fetch(`/api/raceTimes/${raceId}`)
+    const { data: timeData, error } = await useFetch(`/api/raceTimes/${raceId}`)
 
-        if (timeData.status == 200 &&
-            timeData.content !== undefined
-        ) {
-            return [true, timeData.content.length, timeData.content]
-        } else {
-            return [false, 0]
-        }
-    } catch (error) {
-        console.error("Captured Error: ", error)
+    if (error.value) {
+        console.error(error.value.message)
+
         return [false, 0]
     }
+
+    if (timeData.value === undefined) return [false, 0]
+
+    return [true, timeData.value.length, timeData.value]
 }
 
-// const validAndMaybeNum: [boolean, number, Array<StoredTimeData>?] = race.value !== undefined ? await get_times(race.value.name) : [false, 0]
-const validAndMaybeNum: [boolean, number, Array<StoredTimeData>?] = (race.value && race.value.id) ? await getTimes(race.value.id) : [false, 0]
+const validAndMaybeNum: [boolean, number, Array<StoredTimeData>?] = (race.value) ? await getTimes(race.value.id) : [false, 0]
 </script>
 
 <template>

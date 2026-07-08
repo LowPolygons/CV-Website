@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { ApiResponse } from '~~/shared/api_response'
 import type { DatabaseRaceType } from '~~/shared/DatabaseRaceType'
 import type { DatabaseTimeData } from '~~/shared/DatabaseTimeData'
 
@@ -24,36 +23,22 @@ const config = useRuntimeConfig()
 const message = ref('No Message To Display')
 
 async function logInAttempt() {
-    const session: ApiResponse<boolean> = await $fetch("/api/admin/login", {
-        method: "POST",
-        body: {
-            username: username.value,
-            password: password.value
-        }
-    })
+    try {
+        const _ = await $fetch("/api/admin/login", {
+            method: "POST",
+            body: {
+                username: username.value,
+                password: password.value
+            }
+        })
 
-    if (session.status === 200) {
         logged_in.value = true
-        const raceResult: ApiResponse<DatabaseRaceType[]> = await $fetch("/api/admin/allRaces", { method: "GET"})
-        if (raceResult.status !== 200 || raceResult.content === undefined) {
-            console.log(raceResult.error)
-            message.value = "Unsuccessful log in: " + raceResult.error
-            allRaces.value = null
-        } else {
-            allRaces.value = raceResult.content
-        }
 
-        const timeResult: ApiResponse<DatabaseTimeData[]> = await $fetch("/api/admin/raceTimes", { method: "GET"})
-        if (timeResult.status !== 200 || timeResult.content === undefined) {
-            console.log(timeResult.error)
-            message.value = "Unsuccessful log in: " + timeResult.error
-            allTimes.value = null
-        } else {
-            allTimes.value = timeResult.content
-        }
-    } else {
+        allRaces.value = await $fetch<DatabaseRaceType[]>("/api/admin/allRaces", { method: "GET"})
+        allTimes.value = await $fetch<DatabaseTimeData[]>("/api/admin/raceTimes", { method: "GET"})
+    } catch (error) {
         logged_in.value = false
-        message.value = "Unsuccessful log in: " + session.error
+        message.value = "Unsuccessful log in: " + error
     }
 }
 
@@ -66,16 +51,15 @@ async function tryApproveRace() {
     if (targetRace === undefined) return undefined
     if (targetRace.approved === 1) return undefined
 
-    const status: ApiResponse<boolean> = await $fetch("/api/admin/approveRace", { 
-        method: "POST",
-        body: {
-            raceId: approvedRace.value
-        }})
-
-    if (status.status === 200) {
-        message.value = "Succesfully update Race approval status"
-    } else {
-        message.value = "Failed to update race status: " + status.error
+    try {
+        const _ = await $fetch<boolean>("/api/admin/approveRace", { 
+            method: "POST",
+            body: {
+                raceId: approvedRace.value
+            }})
+        message.value = "Successfully approved race"
+    } catch (error) {
+        message.value = "Failed to update race status: " + error
     }
 }
 
@@ -87,16 +71,15 @@ async function tryDeleteRace() {
 
     if (targetRace === undefined) return undefined
 
-    const status: ApiResponse<boolean> = await $fetch("/api/admin/deleteRace", { 
-        method: "POST",
-        body: {
-            raceId: targettedRace.value
-        }})
-
-    if (status.status === 200) {
-        message.value = "Succesfully deleted RACE "
-    } else {
-        message.value = "Failed to delete race: " + status.error
+    try {
+        const _ = await $fetch<boolean>("/api/admin/deleteRace", { 
+            method: "POST",
+            body: {
+                raceId: targettedRace.value
+            }})
+        message.value = "Successfully deleted race"
+    } catch (error) {
+        message.value = "Failed to delete race: " + error
     }
 }
 
@@ -117,16 +100,15 @@ async function tryDeleteTime() {
         return undefined
     }
 
-    const status: ApiResponse<boolean> = await $fetch("/api/admin/deleteTime", { 
-        method: "POST",
-        body: {
-            timeId: targettedTime.value
-        }})
-
-    if (status.status === 200) {
+    try {
+        const _ = await $fetch<boolean>("/api/admin/deleteTime", { 
+            method: "POST",
+            body: {
+                timeId: targettedTime.value
+            }})
         message.value = "Succesfully deleted time"
-    } else {
-        message.value = "Failed to delete time : " + status.error
+    } catch (error) {
+        message.value = "Failed to delete time : " + error
     }
 }
 </script>

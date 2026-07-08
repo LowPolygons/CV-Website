@@ -1,4 +1,3 @@
-import { Err, Ok, type ApiResponse } from "~~/shared/api_response"
 import { getRouterParam } from 'h3'
 import { TimePacket } from "~~/shared/TimePacket"
 import { DatabaseTimeData } from "~~/shared/DatabaseTimeData"
@@ -10,7 +9,10 @@ export default defineEventHandler(async (event) => {
         const relevantRace = Number(getRouterParam(event, "raceId"))
 
         if (relevantRace === undefined)
-            return Err(400, "Race Router Param undefined")
+            return createError({
+                status: 501,
+                message: "Race Router Param undefined"
+            })
 
         const timeData = await readBody(event) as TimePacket
 
@@ -20,7 +22,10 @@ export default defineEventHandler(async (event) => {
             .all()
 
         if ((results as DatabaseTimeData[]).find((race) => race.race_id === relevantRace) === undefined)
-            return Err(500, "Provided race is not in dataset")
+            return createError({
+                status: 401, 
+                message: "Provided race is not in dataset"
+            })
 
         await db.prepare(`INSERT INTO Times 
             (username, mins, secs, millis, car, race_id) 
@@ -35,9 +40,12 @@ export default defineEventHandler(async (event) => {
             )
             .run()
 
-        return Ok(timeData)
+        return timeData
     } catch (error) {
         console.error(error)
-        return Err(600, "Improper API request: " + error)
+        return createError({
+            status: 500, 
+            message: "Improper API request: " + error
+        })
     }
 })

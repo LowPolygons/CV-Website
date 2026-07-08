@@ -1,6 +1,3 @@
-import { readFile } from "node:fs/promises"
-import { Err, Ok, type ApiResponse } from "~~/shared/api_response"
-import { join } from "node:path"
 import { getRouterParam } from 'h3'
 import type { StoredTimeData } from "~~/shared/StoredTimeData"
 import type { DatabaseTimeData } from "~~/shared/DatabaseTimeData"
@@ -12,7 +9,10 @@ export default defineEventHandler(async (event) => {
         const desiredRace = Number(getRouterParam(event, "raceId"))
 
         if (desiredRace === undefined)
-            return Err(400, "Improper API request, raceId router param undefined")
+            throw createError({
+                status: 400, 
+                message: "Improper API request, raceId router param undefined"
+            })
 
         const { results } = await db
             .prepare("SELECT * FROM Times WHERE race_id = ?")
@@ -33,10 +33,13 @@ export default defineEventHandler(async (event) => {
             return (element.raceId) ? (element.raceId === desiredRace) : false
         })
 
-        return Ok(filtered)
+        return filtered
 
     } catch (error) {
         console.error("Error reading files server side: ", error)
-        return Err(500, "Failed to load times") 
+        throw createError({
+            status: 500, 
+            message: "Failed to load times"
+        }) 
     }
 })

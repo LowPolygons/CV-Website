@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { ApiResponse } from '~~/shared/api_response';
 
 const raceName = ref('')
 const description = ref('')
@@ -45,17 +44,14 @@ async function submitRace() {
         )
     }
 
-
-    const raceStatus: ApiResponse<boolean> = await $fetch("/api/races/races", {
-        method: "POST",
-        body: formData 
-    })
-    
-    if (raceStatus.status == 200) {
+    try {
+        const _ = await $fetch<boolean>("api/races", {
+            method: "POST",
+            body: formData
+        })
         message.value = "Successfully uploaded race. It must be approved before it appears on the site"
-    } else {
-        console.log(raceStatus.error)
-
+    } catch (error) {
+        console.log(error)
         message.value = "Failed to upload the race, please try again later"
     }
 }
@@ -117,7 +113,7 @@ async function submitRace() {
                 Choose Image
                 </StyledButton>
                 <p class="italic text-slate-900 dark:text-slate-200 text-center p-1 text-lg">
-                    {{ imageTextPreview  }}
+                    {{ imageTextPreview }}
                 </p>
                 <input
                     class="hidden"

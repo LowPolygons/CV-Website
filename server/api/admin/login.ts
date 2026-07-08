@@ -1,5 +1,3 @@
-import { Err, Ok } from "~~/shared/api_response"
-
 export default defineEventHandler(async (event) => {
     type FormatOfLogin = {
         username: string,
@@ -22,10 +20,16 @@ export default defineEventHandler(async (event) => {
                 path: "/"
             })
 
-            return Ok(true)
+            return true
         }
-        return Err(400, "Logged in with wrong credentials")
+        throw createError({
+            statusCode: 403,
+            message: "Logged in with wrong credentials"
+        })
     } catch (error) {
-        return Err(500, "Failed to authenticate user login") 
+        return createError({
+            status: 500, 
+            message: "Failed to authenticate user login"
+        }) 
     }
 })

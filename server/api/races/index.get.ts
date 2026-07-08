@@ -1,6 +1,3 @@
-import { readFile } from "node:fs/promises"
-import { join } from "node:path"
-import { Err, Ok } from "~~/shared/api_response"
 import { RaceType } from "~~/shared/RaceType"
 import type { DatabaseRaceType } from "~~/shared/DatabaseRaceType"
 
@@ -19,12 +16,15 @@ export default defineEventHandler(async (event) => {
             imageUrl: race.image_url,
             id: race.race_id
         }))
-        
-        return Ok(races.filter((race) => {
+
+        return races.filter((race) => {
             return race.approved
-        }))
+        })
     } catch (error) {
         console.error(error)
-        return Err(500, "Failed to load races database")
+        throw createError({
+            status: 501,
+            message: "Failed to load races database"
+        })
     }
 })

@@ -1,17 +1,6 @@
 <script setup lang="ts">
-import StyledATag from "~/components/StyledATag.vue";
-import type { ApiResponse } from "~~/shared/api_response";
-import type { RaceType } from "~~/shared/RaceType";
 
-const races = await $fetch("/api/races/races", {
-    method: "GET"
-    }).then((data: ApiResponse<Array<RaceType>>) => {
-        if (data.status == 200) {
-            return data.content
-        } else {
-            return undefined
-        }
-    })
+const { data: races, error } = await useFetch("/api/races")
 
 const config = useRuntimeConfig()
 
@@ -35,12 +24,19 @@ const config = useRuntimeConfig()
             </StyledATag>
         </div>
         <div
-            v-if="races !== undefined"
+            class="bg-neutral-300 mt-5 w-[90%] mx-auto dark:bg-neutral-700 border-5 border-neutral-300 dark:border-neutral-700 rounded-xl"
+            v-if="error !== undefined"
+        >
+            <ImportantText>Sorry, there has been a problem connecting to the server</ImportantText>
+            <ImportantText>{{ error.message }}</ImportantText>
+        </div>
+        <div
+            v-else-if="races !== undefined"
             v-for="(race, index) in races"
             :key="race.name"
             class="w-9/10 mx-auto p-1"
         >
-            <NuxtLink :to="`/${index}`">
+            <NuxtLink :to="`/${race.id}`">
                 <div class="bg-neutral-300 dark:bg-neutral-700 border-5 border-neutral-300 dark:border-neutral-700 rounded-xl">
                     <h2>
                         <ImportantText>
@@ -51,12 +47,6 @@ const config = useRuntimeConfig()
                 </div>
                 <hr v-if="index !== races.length - 1">
             </NuxtLink>
-        </div>
-        <div
-            class="bg-neutral-300 mt-5 w-[90%] mx-auto dark:bg-neutral-700 border-5 border-neutral-300 dark:border-neutral-700 rounded-xl"
-            v-else
-        >
-            <ImportantText>Sorry, there has been a problem connecting to the server</ImportantText>
         </div>
     </div>
 </template>>
